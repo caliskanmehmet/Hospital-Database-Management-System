@@ -20,4 +20,8 @@ public class DoctorService {
     public Doctor getDoctorById(int id) {
         return doctorRepository.getDoctorById(id);
     }
+
+    public List<Doctor> getDoctorsByClinicId(int clinicId) {
+        return doctorRepository.getDoctorsByClinicId(clinicId);
+    }
 }

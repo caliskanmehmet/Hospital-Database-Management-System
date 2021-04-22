@@ -26,4 +26,9 @@ public class DoctorController {
     public Doctor getDoctorById(@PathVariable("id") int id) {
         return doctorService.getDoctorById(id);
     }
+
+    @GetMapping("/getByClinic/{clinicId}")
+    public List<Doctor> getDoctorsByClinicId(@PathVariable("clinicId") int clinicId) {
+        return doctorService.getDoctorsByClinicId(clinicId);
+    }
 }

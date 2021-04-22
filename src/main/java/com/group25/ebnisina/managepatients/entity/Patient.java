@@ -1,4 +1,4 @@
-package com.group25.ebnisina.managedoctors.entity;
+package com.group25.ebnisina.managepatients.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,31 +8,24 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Date;
 
-@Entity
 @Getter
 @Setter
 @ToString
-public class Doctor {
+@Entity
+public class Patient {
     @Id
     private int id;
 
     private String password;
-
     private String first_name;
-
     private String middle_name;
-
     private String last_name;
-
     private String gender;
+    private String ssn;
+    private String blood_type;
 
     private Date birth_date;
 
-    private String specialization;
-
-    private int clinicId;
-
-    public Doctor() {
-
-    }
+    private int weight;
+    private int height;
 }
