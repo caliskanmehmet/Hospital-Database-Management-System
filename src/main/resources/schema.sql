@@ -88,7 +88,7 @@ CREATE TABLE Evaluate (
 );
 
 CREATE TABLE Disease (
-        disease_id INTEGER NOT NULL,
+        disease_id INTEGER NOT NULL AUTO_INCREMENT,
         name VARCHAR(50) NOT NULL,
         PRIMARY KEY(disease_id)
 );
@@ -102,10 +102,10 @@ CREATE TABLE Diagnose (
         FOREIGN KEY (disease_id) REFERENCES Disease(disease_id)
 );
 
+-- TODO: Remove explanation from symptom
 CREATE TABLE Symptom (
-        symptom_id INTEGER NOT NULL,
+        symptom_id INTEGER NOT NULL AUTO_INCREMENT,
         name VARCHAR(50) NOT NULL,
-        explanation VARCHAR(200),
         PRIMARY KEY (symptom_id)
 );
 
@@ -124,10 +124,10 @@ CREATE TABLE Symptoms_during_visit (
         FOREIGN KEY (app_id) REFERENCES Appointment(app_id),
         FOREIGN KEY (symptom_id) REFERENCES Symptom(symptom_id)
 );
-
+-- TODO: Change the name length
 CREATE TABLE Test_type (
         type_id INTEGER NOT NULL,
-        name VARCHAR(30) NOT NULL,
+        name VARCHAR(50) NOT NULL,
         PRIMARY KEY (type_id)
 );
 

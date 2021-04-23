@@ -21,8 +21,18 @@ public class AppointmentService {
         return appointmentRepository.getAppointmentsOfDoctor(doctorId);
     }
 
+    public List<Appointment> getAppointmentsOfPatient(int patient_id) {
+        return appointmentRepository.getAppointmentsOfPatient(patient_id);
+    }
+
     public void addAppointment(Appointment appointment) {
         appointmentRepository.addAppointment(appointment.getApp_date(), appointment.getApp_time(),
                 appointment.getPatient_id(), appointment.getDoctor_id());
+    }
+
+    public void addSymptomsToAppointment(int app_id, List<Integer> symptoms) {
+        symptoms.forEach(symptom_id -> {
+            appointmentRepository.addSymptomToAppointment(app_id, symptom_id);
+        });
     }
 }
