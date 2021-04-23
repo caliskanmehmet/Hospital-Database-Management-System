@@ -6,7 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -26,7 +26,7 @@ public class Doctor {
 
     private String gender;
 
-    private Date birth_date;
+    private LocalDate birth_date;
 
     private String specialization;
 

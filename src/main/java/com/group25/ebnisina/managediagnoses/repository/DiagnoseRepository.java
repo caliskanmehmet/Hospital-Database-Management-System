@@ -22,5 +22,5 @@ public interface DiagnoseRepository extends org.springframework.data.repository.
             "(?1, ?2, ?3)", nativeQuery = true)
     @Modifying
     @Transactional
-    public void addDiagnose(String explanation, int app_id, int disease_id);
+    void addDiagnose(String explanation, int app_id, int disease_id);
 }

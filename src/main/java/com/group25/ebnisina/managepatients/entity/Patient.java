@@ -6,7 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -24,7 +24,7 @@ public class Patient {
     private String ssn;
     private String blood_type;
 
-    private Date birth_date;
+    private LocalDate birth_date;
 
     private int weight;
     private int height;

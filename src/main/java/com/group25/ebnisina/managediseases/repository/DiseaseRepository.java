@@ -10,4 +10,7 @@ public interface DiseaseRepository extends Repository<Disease, Integer> {
 
     @Query(value = "SELECT * FROM Disease D", nativeQuery = true)
     List<Disease> getAllDiseases();
+
+    @Query(value = "SELECT * FROM Disease D WHERE D.disease_id = ?1", nativeQuery = true)
+    Disease getDiseaseById(int disease_id);
 }

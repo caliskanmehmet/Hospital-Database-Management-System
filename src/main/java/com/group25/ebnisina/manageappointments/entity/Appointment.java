@@ -6,8 +6,8 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -19,9 +19,9 @@ public class Appointment {
 
     private String app_status;
 
-    private Date app_date;
+    private LocalDate app_date;
 
-    private Time app_time;
+    private LocalTime app_time;
 
     private int patient_id;
 

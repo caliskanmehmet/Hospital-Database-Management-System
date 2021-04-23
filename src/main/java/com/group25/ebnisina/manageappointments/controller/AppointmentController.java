@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/appointment")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AppointmentController {
 
     private final AppointmentService appointmentService;

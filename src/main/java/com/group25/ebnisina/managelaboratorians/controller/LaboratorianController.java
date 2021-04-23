@@ -3,16 +3,14 @@ package com.group25.ebnisina.managelaboratorians.controller;
 import com.group25.ebnisina.managelaboratorians.entity.Laboratorian;
 import com.group25.ebnisina.managelaboratorians.service.LaboratorianService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/laboratorian")
+@CrossOrigin(origins = "http://localhost:3000")
 public class LaboratorianController {
 
     private final LaboratorianService laboratorianService;

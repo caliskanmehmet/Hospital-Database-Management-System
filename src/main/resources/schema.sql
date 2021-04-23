@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS diagnose;
 DROP TABLE IF EXISTS disease_shows_symptom;
 DROP TABLE IF EXISTS disease;
 DROP TABLE IF EXISTS eligible_for;
-DROP TABLE IF EXISTS evaluate;
+DROP TABLE IF EXISTS evaluation;
 DROP TABLE IF EXISTS process;
 DROP TABLE IF EXISTS laboratorian;
 DROP TABLE IF EXISTS result_of;
@@ -77,18 +77,16 @@ CREATE TABLE Appointment (
         FOREIGN KEY (doctor_id) REFERENCES Doctor(id)
 );
 
-CREATE TABLE Evaluate (
+CREATE TABLE Evaluation (
         comment VARCHAR(500),
         rating INTEGER NOT NULL,
-        patient_id INTEGER NOT NULL,
         app_id INTEGER NOT NULL,
-        PRIMARY KEY (patient_id, app_id),
-        FOREIGN KEY (patient_id) REFERENCES Patient(id),
+        PRIMARY KEY (app_id),
         FOREIGN KEY (app_id) REFERENCES Appointment(app_id)
 );
 
 CREATE TABLE Disease (
-        disease_id INTEGER NOT NULL AUTO_INCREMENT,
+        disease_id INTEGER NOT NULL,
         name VARCHAR(50) NOT NULL,
         PRIMARY KEY(disease_id)
 );
@@ -104,7 +102,7 @@ CREATE TABLE Diagnose (
 
 -- TODO: Remove explanation from symptom
 CREATE TABLE Symptom (
-        symptom_id INTEGER NOT NULL AUTO_INCREMENT,
+        symptom_id INTEGER NOT NULL,
         name VARCHAR(50) NOT NULL,
         PRIMARY KEY (symptom_id)
 );

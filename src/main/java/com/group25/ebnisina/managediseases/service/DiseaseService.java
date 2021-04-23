@@ -16,4 +16,8 @@ public class DiseaseService {
     public List<Disease> getAllDiseases() {
         return diseaseRepository.getAllDiseases();
     }
+
+    public Disease getDiseaseById(int disease_id) {
+        return diseaseRepository.getDiseaseById(disease_id);
+    }
 }
