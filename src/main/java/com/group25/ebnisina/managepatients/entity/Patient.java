@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 public class Patient {
     @Id
-    private int id;
+    private int patient_id;
 
     private String password;
     private String first_name;

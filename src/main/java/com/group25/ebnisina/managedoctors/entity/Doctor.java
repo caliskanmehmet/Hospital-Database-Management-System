@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @ToString
 public class Doctor {
     @Id
-    private int id;
+    private int doctor_id;
 
     private String password;
 

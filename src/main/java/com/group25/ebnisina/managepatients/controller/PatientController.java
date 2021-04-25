@@ -5,6 +5,7 @@ import com.group25.ebnisina.managepatients.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -21,6 +22,7 @@ public class PatientController {
     }
 
     @PostMapping("/add")
+    @Transactional
     public void addPatient(@RequestBody Patient patient) {
         patientService.addPatient(patient);
     }

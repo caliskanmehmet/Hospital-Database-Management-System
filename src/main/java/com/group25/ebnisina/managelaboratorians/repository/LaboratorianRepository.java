@@ -8,13 +8,19 @@ import java.util.List;
 
 @Repository
 public interface LaboratorianRepository extends org.springframework.data.repository.Repository<Laboratorian, Integer> {
-    @Query(value = "SELECT * FROM laboratorian l", nativeQuery = true)
+    @Query(value = "SELECT * FROM laboratorian l INNER JOIN Person p ON p.id = l.person_id", nativeQuery = true)
     List<Laboratorian> getAllLaboratorians();
 
-    @Query(value = "SELECT * FROM laboratorian l WHERE l.id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * " +
+            "FROM laboratorian l " +
+            "INNER JOIN Person p ON p.id = l.person_id " +
+            "WHERE l.laboratorian_id = ?1", nativeQuery = true)
     Laboratorian getLaboratorianById(int id);
 
-    @Query(value = "SELECT * FROM laboratorian l Where l.clinic_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * " +
+            "FROM laboratorian l " +
+            "INNER JOIN Person p ON p.id = l.person_id " +
+            "WHERE l.clinic_id = ?1", nativeQuery = true)
     List<Laboratorian> getLaboratoriansByClinicId(int clinic_id);
 
 }

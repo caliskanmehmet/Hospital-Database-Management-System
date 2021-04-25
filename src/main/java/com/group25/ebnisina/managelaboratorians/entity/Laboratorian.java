@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @ToString
 public class Laboratorian {
     @Id
-    private int id;
+    private int laboratorian_id;
 
     private String password;
 

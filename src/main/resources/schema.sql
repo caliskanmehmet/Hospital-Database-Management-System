@@ -14,22 +14,30 @@ DROP TABLE IF EXISTS appointment;
 DROP TABLE IF EXISTS doctor;
 DROP TABLE IF EXISTS clinic;
 DROP TABLE IF EXISTS patient;
+DROP TABLE IF EXISTS person;
 DROP TABLE IF EXISTS test_type;
 
-CREATE TABLE Patient (
-        id   INTEGER      NOT NULL AUTO_INCREMENT,
+CREATE TABLE Person (
+        id   INTEGER  NOT NULL AUTO_INCREMENT,
         password VARCHAR(32) NOT NULL,
         first_name VARCHAR(20) NOT NULL,
         middle_name VARCHAR(20),
         last_name VARCHAR(20) NOT NULL,
         gender VARCHAR(1) NOT NULL,
         birth_date DATE NOT NULL,
+        primary key (id)
+);
+
+CREATE TABLE Patient (
+        patient_id INTEGER NOT NULL AUTO_INCREMENT,
         ssn VARCHAR(15) NOT NULL,
+        person_id INTEGER NOT NULL,
         weight INTEGER,
         height INTEGER,
         blood_type VARCHAR(10),
-        PRIMARY KEY (id)
-);
+        PRIMARY KEY (patient_id),
+        FOREIGN KEY (person_id) REFERENCES Person (id)
+) AUTO_INCREMENT = 1000;
 
 CREATE TABLE Clinic (
         clinic_id INTEGER NOT NULL,
@@ -38,32 +46,24 @@ CREATE TABLE Clinic (
 );
 
 CREATE TABLE Laboratorian (
-        id   INTEGER      NOT NULL AUTO_INCREMENT,
-        password VARCHAR(32) NOT NULL,
-        first_name VARCHAR(20) NOT NULL,
-        middle_name VARCHAR(20),
-        last_name VARCHAR(20) NOT NULL,
-        gender VARCHAR(1) NOT NULL,
-        birth_date DATE NOT NULL,
+        laboratorian_id INTEGER NOT NULL AUTO_INCREMENT,
+        person_id INTEGER NOT NULL,
         specialization VARCHAR(30) NOT NULL,
         clinic_id INTEGER,
-        PRIMARY KEY (id),
+        PRIMARY KEY (laboratorian_id),
+        FOREIGN KEY (person_id) REFERENCES Person (id),
         FOREIGN KEY (clinic_id) REFERENCES Clinic(clinic_id)
-);
+) AUTO_INCREMENT = 2000;
 
 CREATE TABLE Doctor (
-        id   INTEGER      NOT NULL AUTO_INCREMENT,
-        password VARCHAR(32) NOT NULL,
-        first_name VARCHAR(20) NOT NULL,
-        middle_name VARCHAR(20),
-        last_name VARCHAR(20) NOT NULL,
-        gender VARCHAR(1) NOT NULL,
-        birth_date DATE NOT NULL,
+        doctor_id INTEGER NOT NULL AUTO_INCREMENT,
+        person_id INTEGER NOT NULL,
         specialization VARCHAR(30) NOT NULL,
         clinic_id INTEGER,
-        PRIMARY KEY (id),
+        PRIMARY KEY (doctor_id),
+        FOREIGN KEY (person_id) REFERENCES Person (id),
         FOREIGN KEY (clinic_id) REFERENCES Clinic(clinic_id)
-);
+) AUTO_INCREMENT = 3000;
 
 CREATE TABLE Appointment (
         app_id INTEGER NOT NULL AUTO_INCREMENT,
@@ -73,8 +73,8 @@ CREATE TABLE Appointment (
         patient_id INTEGER NOT NULL,
         doctor_id INTEGER NOT NULL,
         PRIMARY KEY (app_id),
-        FOREIGN KEY (patient_id) REFERENCES Patient(id),
-        FOREIGN KEY (doctor_id) REFERENCES Doctor(id)
+        FOREIGN KEY (patient_id) REFERENCES Patient(patient_id),
+        FOREIGN KEY (doctor_id) REFERENCES Doctor(doctor_id)
 );
 
 CREATE TABLE Evaluation (
@@ -145,7 +145,7 @@ CREATE TABLE Eligible_for (
         laboratorian_id INTEGER NOT NULL,
         PRIMARY KEY (test_type, laboratorian_id),
         FOREIGN KEY (test_type) REFERENCES Test_type(type_id),
-        FOREIGN KEY (laboratorian_id) REFERENCES Laboratorian(id)
+        FOREIGN KEY (laboratorian_id) REFERENCES Laboratorian(laboratorian_id)
 );
 
 CREATE TABLE Test_component (
@@ -174,6 +174,6 @@ CREATE TABLE Process (
         laboratorian_id INTEGER NOT NULL,
         request_id INTEGER NOT NULL,
         PRIMARY KEY (laboratorian_id, request_id),
-        FOREIGN KEY (laboratorian_id) REFERENCES Laboratorian(id),
+        FOREIGN KEY (laboratorian_id) REFERENCES Laboratorian(laboratorian_id),
         FOREIGN KEY (request_id) REFERENCES Test_request(request_id)
 );

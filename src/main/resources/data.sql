@@ -69,26 +69,31 @@ INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type
                           ('Free T3', 2.56, 5.01, 'pg/mL', 7);
 
 -- Inserting pre-defined Doctors
-INSERT INTO Doctor (password, first_name, middle_name, last_name,
-                    gender, birth_date, specialization, clinic_id)
-                    VALUES
-                    ('deneme', 'Mehmet', '', 'Çalışkan', 'M', '1997-07-10',
-                     'Cardiologist', 1);
+INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
+                   ('D4GGSDV', 'Mehmet', '', 'Çalışkan', 'M', '1997-07-10');
 
-INSERT INTO Doctor (password, first_name, middle_name, last_name,
-                    gender, birth_date, specialization, clinic_id)
+INSERT INTO Doctor (person_id, specialization, clinic_id)
                     VALUES
-                    ('fD32GDG1', 'Mert', '', 'Çalışkan', 'M', '2000-07-10',
-                     'Child Health', 8);
+                    ((SELECT LAST_INSERT_ID()), 'Cardiologist', 1);
 
-INSERT INTO Doctor (password, first_name, middle_name, last_name,
-                    gender, birth_date, specialization, clinic_id)
-                    VALUES
-                    ('fd3bfDZ1', 'Ömer', 'Yavuz', 'Öztürk', 'M', '2000-05-17',
-                     'Psychology', 3);
+INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
+                   ('D4GGSDV', 'Mert', '', 'Çalışkan', 'M', '2000-02-10');
 
-INSERT INTO Doctor (password, first_name, middle_name, last_name,
-                    gender, birth_date, specialization, clinic_id)
+INSERT INTO Doctor (person_id, specialization, clinic_id)
                     VALUES
-                    ('dg53fFF3', 'Yusuf', '', 'Alpdemir', 'M', '2000-01-28',
-                     'Cardiologist', 1);
+                    ((SELECT LAST_INSERT_ID()), 'Psychology', 3);
+
+INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
+                    ('D4X3CSDV', 'Ömer', 'Yavuz', 'Öztürk', 'M', '1999-06-19');
+
+INSERT INTO Doctor (person_id, specialization, clinic_id)
+                    VALUES
+                    ((SELECT LAST_INSERT_ID()), 'Cardiologist', 1);
+
+-- Inserting pre-defined Laboratorians
+INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
+                    ('3FXCXV', 'Yusuf', '', 'Alpdemir', 'M', '1998-12-19');
+
+INSERT INTO Laboratorian (person_id, specialization, clinic_id)
+                        VALUES
+                        ((SELECT LAST_INSERT_ID()), 'Blood Test Specialist', 1);
