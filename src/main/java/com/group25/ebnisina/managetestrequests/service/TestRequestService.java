@@ -14,12 +14,8 @@ public class TestRequestService {
 
     private final TestRequestRepository testRequestRepository;
 
-    public List<TestRequest> getAllTestRequests() {
-        return testRequestRepository.getAllTestRequests();
-    }
-
-    public List<TestRequest> getTestRequestsOfAppointment(int app_id) {
-        return testRequestRepository.getTestRequestsOfAppointment(app_id);
+    public List<TestRequest> getTestRequestsOfPatient(int patient_id) {
+        return testRequestRepository.getTestRequestsOfPatient(patient_id);
     }
 
     public void addTestRequest(TestRequest testRequest) {

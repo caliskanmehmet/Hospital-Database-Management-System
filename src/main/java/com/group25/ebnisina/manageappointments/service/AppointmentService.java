@@ -13,10 +13,6 @@ public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
 
-    public List<Appointment> getAllAppointments() {
-        return appointmentRepository.getAllAppointments();
-    }
-
     public List<Appointment> getAppointmentsOfDoctor(int doctorId) {
         return appointmentRepository.getAppointmentsOfDoctor(doctorId);
     }
@@ -31,8 +27,6 @@ public class AppointmentService {
     }
 
     public void addSymptomsToAppointment(int app_id, List<Integer> symptoms) {
-        symptoms.forEach(symptom_id -> {
-            appointmentRepository.addSymptomToAppointment(app_id, symptom_id);
-        });
+        symptoms.forEach(symptom_id -> appointmentRepository.addSymptomToAppointment(app_id, symptom_id));
     }
 }

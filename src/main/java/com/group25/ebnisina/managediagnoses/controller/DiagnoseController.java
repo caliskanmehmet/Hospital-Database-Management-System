@@ -15,11 +15,6 @@ public class DiagnoseController {
 
     private final DiagnoseService diagnoseService;
 
-    @GetMapping("/getAll")
-    public List<Diagnose> getAllDiagnoses() {
-        return diagnoseService.getAllDiagnoses();
-    }
-
     @GetMapping("/getByAppointment/{app_id}")
     public List<Diagnose> getDiagnosesOfAppointment(@PathVariable("app_id") int app_id) {
         return diagnoseService.getDiagnosesOfAppointment(app_id);

@@ -13,10 +13,6 @@ public class DiagnoseService {
 
     private final DiagnoseRepository diagnoseRepository;
 
-    public List<Diagnose> getAllDiagnoses() {
-        return diagnoseRepository.getAllDiagnoses();
-    }
-
     public List<Diagnose> getDiagnosesOfAppointment(int app_id) {
         return diagnoseRepository.getDiagnosesOfAppointment(app_id);
     }

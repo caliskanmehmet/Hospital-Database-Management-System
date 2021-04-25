@@ -20,6 +20,8 @@ public class TestRequest {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime request_date_time;
 
+    private String name;
+
     int app_id;
 
     int test_type_id;

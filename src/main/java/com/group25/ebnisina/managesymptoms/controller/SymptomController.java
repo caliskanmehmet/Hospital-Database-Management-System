@@ -3,10 +3,7 @@ package com.group25.ebnisina.managesymptoms.controller;
 import com.group25.ebnisina.managesymptoms.entity.Symptom;
 import com.group25.ebnisina.managesymptoms.service.SymptomService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +18,10 @@ public class SymptomController {
     @GetMapping("/getAll")
     public List<Symptom> getSymptoms() {
         return symptomService.getSymptoms();
+    }
+
+    @GetMapping("/get/{app_id}")
+    public List<Symptom> getSymptomsOfAppointment(@PathVariable("app_id") int app_id) {
+        return symptomService.getSymptomsOfAppointment(app_id);
     }
 }

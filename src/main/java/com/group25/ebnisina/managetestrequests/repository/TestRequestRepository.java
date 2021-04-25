@@ -12,11 +12,11 @@ import java.util.List;
 @Repository
 public interface TestRequestRepository extends org.springframework.data.repository.Repository<TestRequest, Integer> {
 
-    @Query(value = "SELECT * FROM Test_request", nativeQuery = true)
-    List<TestRequest> getAllTestRequests();
-
-    @Query(value = "SELECT * FROM Test_request T WHERE T.app_id = ?1", nativeQuery = true)
-    List<TestRequest> getTestRequestsOfAppointment(int app_id);
+    @Query(value = "SELECT TR.*, TT.name " +
+            "FROM Test_request TR, Appointment A, Test_type TT " +
+            "WHERE TR.app_id = A.app_id AND A.patient_id = ?1 AND TR.test_type_id = TT.type_id " +
+            "ORDER BY TR.request_date_time DESC", nativeQuery = true)
+    List<TestRequest> getTestRequestsOfPatient(int patient_id);
 
     @Query(value = "INSERT INTO Test_request (status, request_date_time, app_id, test_type_id) VALUES" +
             "('Pending', ?1, ?2, ?3)", nativeQuery = true)

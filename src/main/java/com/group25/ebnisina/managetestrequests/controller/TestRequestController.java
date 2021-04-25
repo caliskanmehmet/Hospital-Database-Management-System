@@ -15,14 +15,9 @@ public class TestRequestController {
 
     private final TestRequestService testRequestService;
 
-    @GetMapping("/getAll")
-    public List<TestRequest> getAllTestRequests() {
-        return testRequestService.getAllTestRequests();
-    }
-
-    @GetMapping("/get/{app_id}")
-    public List<TestRequest> getTestRequestsOfAppointment(@PathVariable("app_id") int app_id) {
-        return testRequestService.getTestRequestsOfAppointment(app_id);
+    @GetMapping("/getByPatient/{patient_id}")
+    public List<TestRequest> getTestRequestsOfPatient(@PathVariable("patient_id") int patient_id) {
+        return testRequestService.getTestRequestsOfPatient(patient_id);
     }
 
     @PostMapping("/add")

@@ -97,3 +97,11 @@ INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_
 INSERT INTO Laboratorian (person_id, specialization, clinic_id)
                         VALUES
                         ((SELECT LAST_INSERT_ID()), 'Blood Test Specialist', 1);
+
+-- Inserting pre-defined Patients
+INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
+                    ('3FCPTCXV', 'Jack', '', 'Ryan', 'M', '1970-12-19');
+
+INSERT INTO Patient (ssn, person_id, weight, height, blood_type)
+                        VALUES
+                        ('12345678910',(SELECT LAST_INSERT_ID()), 76, 178, 'AB+ Rh-');

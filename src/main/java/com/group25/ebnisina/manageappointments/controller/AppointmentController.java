@@ -18,11 +18,6 @@ public class AppointmentController {
 
     private final AppointmentService appointmentService;
 
-    @GetMapping("/getAll")
-    public List<Appointment> getAllAppointments() {
-        return appointmentService.getAllAppointments();
-    }
-
     @GetMapping("/getByDoctor/{doctorId}")
     public List<Appointment> getAppointmentsOfDoctor(@PathVariable("doctorId") int doctorId) {
         return appointmentService.getAppointmentsOfDoctor(doctorId);

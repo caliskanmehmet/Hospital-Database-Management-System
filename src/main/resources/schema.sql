@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS diagnose;
+DROP TABLE IF EXISTS Off_days_of_doctor;
 DROP TABLE IF EXISTS disease_shows_symptom;
 DROP TABLE IF EXISTS disease;
 DROP TABLE IF EXISTS eligible_for;
@@ -64,6 +65,13 @@ CREATE TABLE Doctor (
         FOREIGN KEY (person_id) REFERENCES Person (id),
         FOREIGN KEY (clinic_id) REFERENCES Clinic(clinic_id)
 ) AUTO_INCREMENT = 3000;
+
+CREATE TABLE Off_days_of_doctor (
+        doctor_id INTEGER NOT NULL,
+        off_date DATE NOT NULL,
+        PRIMARY KEY (doctor_id, off_date),
+        FOREIGN KEY (doctor_id) REFERENCES Doctor(doctor_id)
+);
 
 CREATE TABLE Appointment (
         app_id INTEGER NOT NULL AUTO_INCREMENT,

@@ -1,5 +1,7 @@
 package com.group25.ebnisina.managedoctors.controller;
 
+import com.group25.ebnisina.managedoctors.dto.DoctorDTO;
+import com.group25.ebnisina.managedoctors.entity.AppointmentRequest;
 import com.group25.ebnisina.managedoctors.entity.Doctor;
 import com.group25.ebnisina.managedoctors.service.DoctorService;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +30,10 @@ public class DoctorController {
     @GetMapping("/getByClinic/{clinicId}")
     public List<Doctor> getDoctorsByClinicId(@PathVariable("clinicId") int clinicId) {
         return doctorService.getDoctorsByClinicId(clinicId);
+    }
+
+    @GetMapping("/getFreeDoctors")
+    public List<DoctorDTO> getDoctorsWithDateAndClinic(@RequestBody AppointmentRequest appointmentRequest) {
+        return doctorService.getDoctorsWithDateAndClinic(appointmentRequest.getClinic_id(), appointmentRequest.getDate());
     }
 }

@@ -18,5 +18,7 @@ public class Diagnose {
     @Id
     private int disease_id;
 
+    private String name;
+
     private String explanation;
 }

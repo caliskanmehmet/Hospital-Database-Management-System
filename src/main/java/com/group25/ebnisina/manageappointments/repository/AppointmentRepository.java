@@ -13,16 +13,17 @@ import java.util.List;
 @Repository
 public interface AppointmentRepository extends org.springframework.data.repository.Repository<Appointment, Integer> {
 
-    @Query(value = "SELECT * FROM Appointment", nativeQuery = true)
-    List<Appointment> getAllAppointments();
-
-    @Query(value = "SELECT * FROM Appointment A WHERE A.doctor_id = ?1 ", nativeQuery = true)
+    @Query(value = "SELECT * " +
+            "FROM Appointment A, Patient PA, Person PE, Doctor D, Clinic C " +
+            "WHERE A.doctor_id = ?1 AND A.patient_id = PA.patient_id AND PA.person_id = PE.id AND " +
+            "D.doctor_id = ?1 AND D.clinic_id = C.clinic_id", nativeQuery = true)
     List<Appointment> getAppointmentsOfDoctor(int doctorId);
 
-    @Query(value = "SELECT * FROM Appointment A WHERE A.patient_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * " +
+            "FROM Appointment A, Doctor D, Person P, Clinic C " +
+            "WHERE A.patient_id = ?1 AND A.doctor_id = D.doctor_id AND D.person_id = P.id AND " +
+            "D.clinic_id = C.clinic_id", nativeQuery = true)
     List<Appointment> getAppointmentsOfPatient(int patient_id);
-
-    // TODO: Add getSymptomsOfAppointment(int app_id) method
 
     @Query(value = "INSERT INTO Appointment (app_status, app_date, app_time, patient_id, doctor_id) VALUES" +
             "('Pending', ?1, ?2, ?3, ?4)", nativeQuery = true)
@@ -35,5 +36,7 @@ public interface AppointmentRepository extends org.springframework.data.reposito
     @Modifying
     @Transactional
     void addSymptomToAppointment(int app_id, int symptom_id);
+
+
 
 }

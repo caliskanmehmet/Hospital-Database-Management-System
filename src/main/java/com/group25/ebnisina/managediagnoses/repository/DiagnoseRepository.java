@@ -12,10 +12,9 @@ import java.util.List;
 @Repository
 public interface DiagnoseRepository extends org.springframework.data.repository.Repository<Diagnose, DiagnoseId> {
 
-    @Query(value = "SELECT * FROM diagnose d", nativeQuery = true)
-    List<Diagnose> getAllDiagnoses();
-
-    @Query(value = "SELECT * FROM diagnose d WHERE d.app_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * " +
+            "FROM Diagnose DG, Disease DS " +
+            "WHERE DG.app_id = ?1 AND DG.disease_id = DS.disease_id", nativeQuery = true)
     List<Diagnose> getDiagnosesOfAppointment(int app_id);
 
     @Query(value = "INSERT INTO Diagnose (explanation, app_id, disease_id) VALUES" +

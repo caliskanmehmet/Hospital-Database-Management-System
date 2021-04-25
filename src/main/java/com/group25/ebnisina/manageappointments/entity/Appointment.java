@@ -26,4 +26,12 @@ public class Appointment {
     private int patient_id;
 
     private int doctor_id;
+
+    private String first_name;
+
+    private String middle_name;
+
+    private String last_name;
+
+    private String name; // clinic_name
 }

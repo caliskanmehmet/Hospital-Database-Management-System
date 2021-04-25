@@ -16,4 +16,8 @@ public class SymptomService {
     public List<Symptom> getSymptoms() {
         return symptomRepository.getSymptoms();
     }
+
+    public List<Symptom> getSymptomsOfAppointment(int app_id) {
+        return symptomRepository.getSymptomsOfAppointment(app_id);
+    }
 }
