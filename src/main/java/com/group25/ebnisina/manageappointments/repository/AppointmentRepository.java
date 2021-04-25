@@ -35,4 +35,5 @@ public interface AppointmentRepository extends org.springframework.data.reposito
     @Modifying
     @Transactional
     void addSymptomToAppointment(int app_id, int symptom_id);
+
 }

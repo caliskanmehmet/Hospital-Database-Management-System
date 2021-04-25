@@ -5,6 +5,7 @@ import com.group25.ebnisina.manageappointments.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 // TODO: disease_shows_symptom
@@ -33,11 +34,13 @@ public class AppointmentController {
     }
 
     @PostMapping("/add")
+    @Transactional
     public void addAppointment(@RequestBody Appointment appointment) {
         appointmentService.addAppointment(appointment);
     }
 
     @PostMapping("/addSymptom/{app_id}")
+    @Transactional
     public void addSymptomToAppointment(@PathVariable("app_id") int app_id, @RequestBody List<Integer> symptoms) {
         appointmentService.addSymptomsToAppointment(app_id, symptoms);
     }

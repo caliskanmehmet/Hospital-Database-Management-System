@@ -5,6 +5,7 @@ import com.group25.ebnisina.managetestrequests.repository.TestRequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,7 +23,7 @@ public class TestRequestService {
     }
 
     public void addTestRequest(TestRequest testRequest) {
-        testRequestRepository.addTestRequest(testRequest.getRequest_date_time(),
+        testRequestRepository.addTestRequest(LocalDateTime.now(),
                 testRequest.getApp_id(), testRequest.getTest_type_id());
     }
 }
