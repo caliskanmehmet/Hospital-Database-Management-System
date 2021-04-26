@@ -31,7 +31,7 @@ CREATE TABLE Person (
 
 CREATE TABLE Patient (
         patient_id INTEGER NOT NULL AUTO_INCREMENT,
-        ssn VARCHAR(15) NOT NULL,
+        ssn VARCHAR(15) NOT NULL UNIQUE,
         person_id INTEGER NOT NULL,
         weight INTEGER,
         height INTEGER,

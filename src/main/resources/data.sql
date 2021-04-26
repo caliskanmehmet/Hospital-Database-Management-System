@@ -70,21 +70,21 @@ INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type
 
 -- Inserting pre-defined Doctors
 INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
-                   ('D4GGSDV', 'Mehmet', '', 'Çalışkan', 'M', '1997-07-10');
+                   ('MehmetCaliskan', 'Mehmet', '', 'Çalışkan', 'M', '1997-07-10');
 
 INSERT INTO Doctor (person_id, specialization, clinic_id)
                     VALUES
                     ((SELECT LAST_INSERT_ID()), 'Cardiologist', 1);
 
 INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
-                   ('D4GGSDV', 'Mert', '', 'Çalışkan', 'M', '2000-02-10');
+                   ('MertCaliskan', 'Mert', '', 'Çalışkan', 'M', '2000-02-10');
 
 INSERT INTO Doctor (person_id, specialization, clinic_id)
                     VALUES
                     ((SELECT LAST_INSERT_ID()), 'Psychology', 3);
 
 INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
-                    ('D4X3CSDV', 'Ömer', 'Yavuz', 'Öztürk', 'M', '1999-06-19');
+                    ('OmerOzturk', 'Ömer', 'Yavuz', 'Öztürk', 'M', '1999-06-19');
 
 INSERT INTO Doctor (person_id, specialization, clinic_id)
                     VALUES
@@ -92,21 +92,21 @@ INSERT INTO Doctor (person_id, specialization, clinic_id)
 
 -- Inserting pre-defined Laboratorians
 INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
-                    ('3FXCXV', 'Yusuf', '', 'Alpdemir', 'M', '1998-12-19');
+                    ('YusufAlpdemir', 'Yusuf', '', 'Alpdemir', 'M', '1998-12-19');
 
 INSERT INTO Laboratorian (person_id, specialization, clinic_id)
                         VALUES
                         ((SELECT LAST_INSERT_ID()), 'Blood Test Specialist', 1);
 
 INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
-                        ('3FXCXV', 'Kahraman', '', 'Deniz', 'M', '1992-12-01');
+                        ('KahramanDeniz', 'Kahraman', '', 'Deniz', 'M', '1992-12-01');
 
 INSERT INTO Laboratorian (person_id, specialization, clinic_id)
                         VALUES
                         ((SELECT LAST_INSERT_ID()), 'Hormone Test Specialist', 3);
 
 INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
-                        ('3FXzCpV', 'Ceren', '', 'Gündoğdu', 'F', '1997-12-15');
+                        ('CerenGundogdu', 'Ceren', '', 'Gündoğdu', 'F', '1997-12-15');
 
 INSERT INTO Laboratorian (person_id, specialization, clinic_id)
                         VALUES
@@ -118,7 +118,7 @@ INSERT INTO Eligible_for (test_type, laboratorian_id) VALUES (1, 2002);
 
 -- Inserting pre-defined Patients
 INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
-                    ('3FCPTCXV', 'Jack', '', 'Ryan', 'M', '1970-12-19');
+                    ('JackRyan', 'Jack', '', 'Ryan', 'M', '1970-12-19');
 
 INSERT INTO Patient (ssn, person_id, weight, height, blood_type)
                         VALUES
