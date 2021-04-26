@@ -20,6 +20,11 @@ public class LaboratorianController {
         return laboratorianService.getAllLaboratorians();
     }
 
+    @GetMapping("/getByTest/{test_type_id}")
+    List<Laboratorian> getLaboratoriansForTest(@PathVariable("test_type_id") int test_type_id) {
+        return laboratorianService.getLaboratoriansForTest(test_type_id);
+    }
+
     @GetMapping("/get/{id}")
     public Laboratorian getLaboratorianById(@PathVariable("id") int id) {
         return laboratorianService.getLaboratorianById(id);

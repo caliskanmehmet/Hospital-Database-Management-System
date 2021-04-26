@@ -12,6 +12,12 @@ public interface LaboratorianRepository extends org.springframework.data.reposit
     List<Laboratorian> getAllLaboratorians();
 
     @Query(value = "SELECT * " +
+            "FROM Laboratorian L, Eligible_for E, Person P " +
+            "WHERE E.test_type = ?1 AND E.laboratorian_id = L.laboratorian_id AND " +
+            "L.person_id = P.id", nativeQuery = true)
+    List<Laboratorian> getLaboratoriansForTest(int test_type_id);
+
+    @Query(value = "SELECT * " +
             "FROM laboratorian l " +
             "INNER JOIN Person p ON p.id = l.person_id " +
             "WHERE l.laboratorian_id = ?1", nativeQuery = true)

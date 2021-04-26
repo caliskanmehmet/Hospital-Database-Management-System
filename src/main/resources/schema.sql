@@ -178,6 +178,7 @@ CREATE TABLE Result_of (
 
 CREATE TABLE Process (
         date_time DATETIME NOT NULL,
+        status VARCHAR(50),
         comment VARCHAR(500),
         laboratorian_id INTEGER NOT NULL,
         request_id INTEGER NOT NULL,

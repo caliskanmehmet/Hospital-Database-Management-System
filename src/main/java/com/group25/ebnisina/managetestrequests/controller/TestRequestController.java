@@ -20,6 +20,16 @@ public class TestRequestController {
         return testRequestService.getTestRequestsOfPatient(patient_id);
     }
 
+    @GetMapping("/getByAppointment/{app_id}")
+    public List<TestRequest> getTestRequestsOfAppointment(@PathVariable("app_id") int app_id) {
+        return testRequestService.getTestRequestsOfAppointment(app_id);
+    }
+
+    @GetMapping("/getByRequestId/{request_id}")
+    public TestRequest getTestRequestWithRequestId(@PathVariable("request_id") int request_id) {
+        return testRequestService.getTestRequestWithRequestId(request_id);
+    }
+
     @PostMapping("/add")
     public void addTestRequest(@RequestBody TestRequest testRequest) {
         testRequestService.addTestRequest(testRequest);

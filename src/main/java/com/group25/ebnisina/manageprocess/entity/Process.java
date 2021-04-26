@@ -24,4 +24,6 @@ public class Process {
     private LocalDateTime date_time;
 
     private String comment;
+
+    private String status;
 }

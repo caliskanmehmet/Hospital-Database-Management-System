@@ -20,4 +20,8 @@ public class TestComponentService {
     public List<TestComponent> getTestComponentsOfTestType(int test_type_id) {
         return testComponentRepository.getTestComponentsOfTestType(test_type_id);
     }
+
+    public int getComponentCountOfTestType(int test_type_id) {
+        return testComponentRepository.getComponentCountOfTestType(test_type_id);
+    }
 }

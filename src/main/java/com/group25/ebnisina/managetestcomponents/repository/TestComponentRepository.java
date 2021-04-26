@@ -15,4 +15,9 @@ public interface TestComponentRepository extends org.springframework.data.reposi
 
     @Query(value = "SELECT * FROM Test_component T WHERE T.test_type_id = ?1", nativeQuery = true)
     List<TestComponent> getTestComponentsOfTestType(int test_type_id);
+
+    @Query(value = "SELECT COUNT(*) " +
+            "FROM Test_component T " +
+            "WHERE T.test_type_id = ?1", nativeQuery = true)
+    int getComponentCountOfTestType(int test_type_id);
 }

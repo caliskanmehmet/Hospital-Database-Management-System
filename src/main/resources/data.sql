@@ -98,6 +98,24 @@ INSERT INTO Laboratorian (person_id, specialization, clinic_id)
                         VALUES
                         ((SELECT LAST_INSERT_ID()), 'Blood Test Specialist', 1);
 
+INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
+                        ('3FXCXV', 'Kahraman', '', 'Deniz', 'M', '1992-12-01');
+
+INSERT INTO Laboratorian (person_id, specialization, clinic_id)
+                        VALUES
+                        ((SELECT LAST_INSERT_ID()), 'Hormone Test Specialist', 3);
+
+INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
+                        ('3FXzCpV', 'Ceren', '', 'Gündoğdu', 'F', '1997-12-15');
+
+INSERT INTO Laboratorian (person_id, specialization, clinic_id)
+                        VALUES
+                        ((SELECT LAST_INSERT_ID()), 'Blood Test Specialist', 1);
+
+INSERT INTO Eligible_for (test_type, laboratorian_id) VALUES (1, 2000);
+INSERT INTO Eligible_for (test_type, laboratorian_id) VALUES (7, 2001);
+INSERT INTO Eligible_for (test_type, laboratorian_id) VALUES (1, 2002);
+
 -- Inserting pre-defined Patients
 INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
                     ('3FCPTCXV', 'Jack', '', 'Ryan', 'M', '1970-12-19');

@@ -18,8 +18,11 @@ public class ProcessService {
         return processRepository.getProcesses();
     }
 
+    public List<Process> getProcessesOfLaboratorian(int laboratorian_id) {
+        return processRepository.getProcessesOfLaboratorian(laboratorian_id);
+    }
+
     public void addProcess(Process process) {
-        processRepository.addProcess(LocalDate.now(), process.getComment(),
-                process.getLaboratorian_id(), process.getRequest_id());
+        processRepository.addProcess(LocalDate.now(), process.getLaboratorian_id(), process.getRequest_id());
     }
 }

@@ -5,6 +5,7 @@ import com.group25.ebnisina.manageoffdays.repository.OffDayRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -15,5 +16,9 @@ public class OffDayService {
 
     public List<OffDay> getOffDaysOfDoctor(int doctor_id) {
         return offDayRepository.getOffDaysOfDoctor(doctor_id);
+    }
+
+    public void addOffDayToDoctor(LocalDate offDay, int doctor_id) {
+        offDayRepository.addOffDayToDoctor(offDay, doctor_id);
     }
 }

@@ -19,4 +19,9 @@ public class OffDayController {
     public List<OffDay> getOffDaysOfDoctor(@PathVariable("doctor_id") int doctor_id) {
         return offDayService.getOffDaysOfDoctor(doctor_id);
     }
+
+    @PostMapping("/add")
+    public void addOffDayToDoctor(@RequestBody OffDay offDay) {
+        offDayService.addOffDayToDoctor(offDay.getOff_date(), offDay.getDoctor_id());
+    }
 }

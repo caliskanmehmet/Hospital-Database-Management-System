@@ -18,9 +18,39 @@ public interface TestRequestRepository extends org.springframework.data.reposito
             "ORDER BY TR.request_date_time DESC", nativeQuery = true)
     List<TestRequest> getTestRequestsOfPatient(int patient_id);
 
+    @Query(value = "SELECT TR.*, TT.name " +
+            "FROM Test_request TR, Appointment A, Test_type TT " +
+            "WHERE TR.app_id = ?1 AND TR.test_type_id = TT.type_id " +
+            "ORDER BY TR.request_date_time DESC", nativeQuery = true)
+    List<TestRequest> getTestRequestsOfAppointment(int app_id);
+
     @Query(value = "INSERT INTO Test_request (status, request_date_time, app_id, test_type_id) VALUES" +
-            "('Pending', ?1, ?2, ?3)", nativeQuery = true)
+            "('Assigned', ?1, ?2, ?3)", nativeQuery = true)
     @Modifying
     @Transactional
     void addTestRequest(LocalDateTime request_date_time, int app_id, int test_type_id);
+
+    @Query(value = "SELECT * " +
+            "FROM Test_request TR, Test_type TT " +
+            "WHERE TR.app_id = ?1 AND TR.test_type_id = ?2 AND TR.test_type_id = TT.type_id", nativeQuery = true)
+    TestRequest getTestRequestWithAppId(int app_id, int test_type_id);
+
+    @Query(value = "SELECT * " +
+            "FROM Test_request TR, Test_type TT " +
+            "WHERE TR.request_id = ?1 AND TR.test_type_id = TT.type_id", nativeQuery = true)
+    TestRequest getTestRequestWithRequestId(int request_id);
+
+    @Query(value = "UPDATE Test_request " +
+            "SET status = 'Preparing' " +
+            "WHERE request_id = ?1", nativeQuery = true)
+    @Modifying
+    @Transactional
+    void updateTestStatusToPreparing(int request_id);
+
+    @Query(value = "UPDATE Test_request " +
+            "SET status = 'Finalized' " +
+            "WHERE request_id = ?1", nativeQuery = true)
+    @Modifying
+    @Transactional
+    void updateTestStatusToFinalized(int request_id);
 }

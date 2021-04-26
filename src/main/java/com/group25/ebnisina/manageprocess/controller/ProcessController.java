@@ -21,6 +21,11 @@ public class ProcessController {
         return processService.getProcesses();
     }
 
+    @GetMapping("/get/{laboratorian_id}")
+    public List<Process> getProcessesOfLaboratorian(@PathVariable("laboratorian_id") int laboratorian_id) {
+        return processService.getProcessesOfLaboratorian(laboratorian_id);
+    }
+
     @PostMapping("/add")
     @Transactional
     public void addProcess(@RequestBody Process process) {

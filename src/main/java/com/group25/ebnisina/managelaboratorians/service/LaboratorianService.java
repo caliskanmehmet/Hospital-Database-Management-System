@@ -17,6 +17,10 @@ public class LaboratorianService {
         return laboratorianRepository.getAllLaboratorians();
     }
 
+    public List<Laboratorian> getLaboratoriansForTest(int test_type_id) {
+        return laboratorianRepository.getLaboratoriansForTest(test_type_id);
+    }
+
     public Laboratorian getLaboratorianById(int id) {
         return laboratorianRepository.getLaboratorianById(id);
     }

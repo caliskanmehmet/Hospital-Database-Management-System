@@ -25,4 +25,9 @@ public class ResultController {
                                                   @RequestParam int patient_id) {
         return resultService.getPastResultsOfParameter(test_type_id, parameter_name, patient_id);
     }
+
+    @PostMapping("/add")
+    public void addResultToTestRequest(@RequestBody Result result) {
+        resultService.addResultToTestRequest(result);
+    }
 }
