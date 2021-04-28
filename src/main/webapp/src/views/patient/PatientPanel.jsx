@@ -15,8 +15,10 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import TableChartIcon from '@material-ui/icons/TableChart';
+import MoodBadIcon from '@material-ui/icons/MoodBad';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import EventIcon from '@material-ui/icons/Event';
 
 const drawerWidth = 240;
 
@@ -141,21 +143,33 @@ export default function PatientPanel() {
                 </div>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    <ListItem button key = "tests">
+                        <ListItemIcon>
+                            <TableChartIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Tests"/>
+                    </ListItem>
+                    <ListItem button key = "diseases">
+                        <ListItemIcon>
+                            <MoodBadIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Diseases"/>
+                    </ListItem>
+                    <ListItem button key = "appointments">
+                        <ListItemIcon>
+                            <EventIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Appointments"/>
+                    </ListItem>
                 </List>
                 <Divider />
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    <ListItem button key = "logout">
+                        <ListItemIcon>
+                            <ExitToAppIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Log Out"/>
+                    </ListItem>
                 </List>
             </Drawer>
             <main className={classes.content}>

@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS test_type;
 
 CREATE TABLE Person (
         id   INTEGER  NOT NULL AUTO_INCREMENT,
-        password VARCHAR(32) NOT NULL,
+        password VARCHAR(32) NOT NULL COLLATE utf8mb4_0900_ai_ci,
         first_name VARCHAR(20) NOT NULL,
         middle_name VARCHAR(20),
         last_name VARCHAR(20) NOT NULL,

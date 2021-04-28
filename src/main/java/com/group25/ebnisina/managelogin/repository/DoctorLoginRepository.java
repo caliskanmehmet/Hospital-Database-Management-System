@@ -9,6 +9,7 @@ public interface DoctorLoginRepository extends org.springframework.data.reposito
 
     @Query(value = "SELECT * " +
             "FROM Doctor D, Person P " +
-            "WHERE D.person_id = P.id AND D.doctor_id = ?1 AND P.password = ?2", nativeQuery = true)
+            "WHERE D.person_id = P.id AND D.doctor_id = CONVERT(?1 using utf8mb4) AND P.password = ?2 " +
+            "COLLATE utf8mb4_bin", nativeQuery = true)
     DoctorLogin checkCredentials(int doctor_id, String password);
 }

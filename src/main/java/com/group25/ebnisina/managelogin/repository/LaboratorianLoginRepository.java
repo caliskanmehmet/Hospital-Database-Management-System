@@ -9,6 +9,7 @@ public interface LaboratorianLoginRepository extends org.springframework.data.re
 
     @Query(value = "SELECT * " +
             "FROM Laboratorian D, Person P " +
-            "WHERE D.person_id = P.id AND D.laboratorian_id = ?1 AND P.password = ?2", nativeQuery = true)
+            "WHERE D.person_id = P.id AND D.laboratorian_id = CONVERT(?1 using utf8mb4) AND P.password = ?2 " +
+            "COLLATE utf8mb4_bin", nativeQuery = true)
     LaboratorianLogin checkCredentials(int laboratorian_id, String password);
 }
