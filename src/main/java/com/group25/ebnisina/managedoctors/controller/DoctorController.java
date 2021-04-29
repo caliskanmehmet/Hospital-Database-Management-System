@@ -32,7 +32,7 @@ public class DoctorController {
         return doctorService.getDoctorsByClinicId(clinicId);
     }
 
-    @GetMapping("/getFreeDoctors")
+    @PostMapping("/getFreeDoctors")
     public List<DoctorDTO> getDoctorsWithDateAndClinic(@RequestBody AppointmentRequest appointmentRequest) {
         return doctorService.getDoctorsWithDateAndClinic(appointmentRequest.getClinic_id(), appointmentRequest.getDate());
     }
