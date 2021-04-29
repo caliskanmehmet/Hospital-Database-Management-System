@@ -22,7 +22,8 @@ public interface AppointmentRepository extends org.springframework.data.reposito
     @Query(value = "SELECT * " +
             "FROM Appointment A, Doctor D, Person P, Clinic C " +
             "WHERE A.patient_id = ?1 AND A.doctor_id = D.doctor_id AND D.person_id = P.id AND " +
-            "D.clinic_id = C.clinic_id", nativeQuery = true)
+            "D.clinic_id = C.clinic_id " +
+            "ORDER BY A.app_date DESC", nativeQuery = true)
     List<Appointment> getAppointmentsOfPatient(int patient_id);
 
     @Query(value = "INSERT INTO Appointment (app_status, app_date, app_time, patient_id, doctor_id) VALUES" +

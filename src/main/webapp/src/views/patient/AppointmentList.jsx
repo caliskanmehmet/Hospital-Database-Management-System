@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import axios from "axios";
 import {ButtonGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -49,42 +50,48 @@ export default function AppointmentList(props) {
     },[])
 
     return (
-        <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Appointment Date and Time</StyledTableCell>
-                        <StyledTableCell>Appointment Status</StyledTableCell>
-                        <StyledTableCell>Doctor Name</StyledTableCell>
-                        <StyledTableCell>Clinic</StyledTableCell>
-                        <StyledTableCell>Detailed Information</StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {appointments.map((row) => (
-                        <StyledTableRow key={row.app_id}>
-                            <StyledTableCell >
-                                {row.app_date + " " + row.app_time}
-                            </StyledTableCell>
-                            <StyledTableCell>{row.app_status}</StyledTableCell>
-                            <StyledTableCell>
-                                {row.first_name + " " + row.middle_name + " " + row.last_name}
-                            </StyledTableCell>
-                            <StyledTableCell>{row.name}</StyledTableCell>
-                            <StyledTableCell>
-                                <ButtonGroup color="primary" variant="outlined">
-                                    <Button disabled={row.app_status === "Pending"}>
-                                        Symptoms
-                                    </Button>
-                                    <Button disabled={row.app_status === "Pending"}>
-                                        Diseases
-                                    </Button>
-                                </ButtonGroup>
-                            </StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <React.Fragment>
+            <Typography component="h2" variant="h6" color="primary" gutterBottom>
+                Current Appointments
+            </Typography>
+            <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Appointment Date and Time</StyledTableCell>
+                            <StyledTableCell>Appointment Status</StyledTableCell>
+                            <StyledTableCell>Doctor Name</StyledTableCell>
+                            <StyledTableCell>Clinic</StyledTableCell>
+                            <StyledTableCell>Detailed Information</StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {appointments.map((row) => (
+                            <StyledTableRow key={row.app_id}>
+                                <StyledTableCell >
+                                    {new Date(Date.parse(row.app_date)).toLocaleString().substring(0, 10) + " - " + row.app_time}
+                                </StyledTableCell>
+                                <StyledTableCell>{row.app_status}</StyledTableCell>
+                                <StyledTableCell>
+                                    {row.first_name + " " + row.middle_name + " " + row.last_name}
+                                </StyledTableCell>
+                                <StyledTableCell>{row.name}</StyledTableCell>
+                                <StyledTableCell>
+                                    <ButtonGroup color="primary" variant="outlined">
+                                        <Button disabled={row.app_status === "Pending"}>
+                                            Symptoms
+                                        </Button>
+                                        <Button disabled={row.app_status === "Pending"}>
+                                            Diseases
+                                        </Button>
+                                    </ButtonGroup>
+                                </StyledTableCell>
+                            </StyledTableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </React.Fragment>
+
     );
 }

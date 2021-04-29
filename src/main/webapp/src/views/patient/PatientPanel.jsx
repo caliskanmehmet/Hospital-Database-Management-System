@@ -16,13 +16,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import TableChartIcon from '@material-ui/icons/TableChart';
-import MoodBadIcon from '@material-ui/icons/MoodBad';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EventIcon from '@material-ui/icons/Event';
 import axios from "axios";
-import {Paper} from "@material-ui/core";
-import PatientDetails from "./PatientDetails";
-import AppointmentList from "./AppointmentList";
+import {Route, useHistory} from "react-router-dom";
+import HomePage from "./HomePage";
+import TestResultsPanel from "./components/TestResultsPanel";
+import GetAppointmentPanel from "./components/GetAppointmentPanel";
+import HomeIcon from '@material-ui/icons/Home';
 
 const drawerWidth = 240;
 
@@ -86,6 +87,12 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
+    paper: {
+        padding: theme.spacing(2),
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+    },
 }));
 
 export default function PatientPanel() {
@@ -93,6 +100,7 @@ export default function PatientPanel() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [userDetails, setUserDetails] = React.useState({});
+    const history = useHistory();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -108,7 +116,7 @@ export default function PatientPanel() {
         then(response => {
             setUserDetails(response.data);
         })
-    },[userDetails])
+    },[])
 
     return (
         <div className={classes.root}>
@@ -156,53 +164,42 @@ export default function PatientPanel() {
                 </div>
                 <Divider />
                 <List>
-                    <ListItem button key = "tests">
+                    <ListItem button onClick={() => history.push("/patient") } key = "homepage">
+                        <ListItemIcon>
+                            <HomeIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Home Page"/>
+                    </ListItem>
+                    <ListItem button onClick={() => history.push("/patient/tests") } key = "tests">
                         <ListItemIcon>
                             <TableChartIcon/>
                         </ListItemIcon>
                         <ListItemText primary="Tests"/>
                     </ListItem>
-                    <ListItem button key = "diseases">
-                        <ListItemIcon>
-                            <MoodBadIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Diseases"/>
-                    </ListItem>
-                    <ListItem button key = "appointments">
+                    <ListItem button onClick={() => history.push("/patient/getAppointment") } key = "appointments">
                         <ListItemIcon>
                             <EventIcon/>
                         </ListItemIcon>
-                        <ListItemText primary="Appointments"/>
+                        <ListItemText primary="Get Appointment"/>
                     </ListItem>
                 </List>
                 <Divider />
                 <List>
-                    <ListItem button key = "logout">
+                    <ListItem button onClick={() => history.push("/logout") } key= "logout">
                         <ListItemIcon>
-                            <ExitToAppIcon/>
+                            <ExitToAppIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Log Out"/>
+                        <ListItemText primary= "Log Out" />
                     </ListItem>
                 </List>
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-                <Paper className={classes.paper}>
-                    <PatientDetails userDetails={userDetails} />
-                </Paper>
-                <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                    ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-                    facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-                    gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-                    donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                    adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-                    Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-                    imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-                    arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-                    donec massa sapien faucibus et molestie ac.
-                </Typography>
-                <AppointmentList userDetails = {userDetails} />
+                    <div className="App">
+                        <Route path="/patient" exact component={() => <HomePage userDetails={userDetails} />} />
+                        <Route path="/patient/tests" exact component={TestResultsPanel} />
+                        <Route path="/patient/getAppointment" exact component={GetAppointmentPanel} />
+                    </div>
             </main>
         </div>
     );
