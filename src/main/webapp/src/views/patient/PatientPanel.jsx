@@ -20,9 +20,9 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EventIcon from '@material-ui/icons/Event';
 import axios from "axios";
 import {Route, useHistory} from "react-router-dom";
-import HomePage from "./HomePage";
-import TestResultsPanel from "./components/TestResultsPanel";
-import GetAppointmentPanel from "./components/GetAppointmentPanel";
+import HomePage from "./homepage/HomePage";
+import TestResultsPanel from "./testresults/TestResultsPanel";
+import GetAppointmentPanel from "./getappointment/GetAppointmentPanel";
 import HomeIcon from '@material-ui/icons/Home';
 
 const drawerWidth = 240;
