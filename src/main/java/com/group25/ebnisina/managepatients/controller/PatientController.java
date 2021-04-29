@@ -26,4 +26,9 @@ public class PatientController {
     public void addPatient(@RequestBody Patient patient) {
         patientService.addPatient(patient);
     }
+
+    @GetMapping("/get/{ssn}")
+    public Patient getWithSsn(@PathVariable("ssn") String ssn) {
+        return patientService.getWithSsn(ssn);
+    }
 }

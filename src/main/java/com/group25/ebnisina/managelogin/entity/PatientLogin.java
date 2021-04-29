@@ -12,4 +12,6 @@ import javax.persistence.Id;
 public class PatientLogin {
     @Id
     private String ssn;
+
+    private int patient_id;
 }

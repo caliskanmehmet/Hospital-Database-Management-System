@@ -27,4 +27,8 @@ public interface PatientRepository extends org.springframework.data.repository.R
 
     @Query(value = "SELECT * FROM Patient PA INNER JOIN Person PE ON PE.id = PA.person_id", nativeQuery = true)
     List<Patient> getPatients();
+
+    @Query(value = "SELECT * FROM Patient PA INNER JOIN Person PE ON PE.id = PA.person_id " +
+            "WHERE PA.ssn = ?1", nativeQuery = true)
+    Patient getWithSsn(String ssn);
 }

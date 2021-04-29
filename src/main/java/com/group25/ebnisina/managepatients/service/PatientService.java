@@ -22,4 +22,8 @@ public class PatientService {
     public List<Patient> getPatients() {
         return patientRepository.getPatients();
     }
+
+    public Patient getWithSsn(String ssn) {
+        return patientRepository.getWithSsn(ssn);
+    }
 }
