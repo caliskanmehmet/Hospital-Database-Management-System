@@ -19,6 +19,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -52,13 +53,14 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-export default function GetAppointmentPanel() {
+export default function GetAppointmentPanel(props) {
     const classes = useStyles();
     const [selectedClinicId, selectClinic] = React.useState('');
     const [clinics, setClinics] = React.useState([]);
     const [open, setOpen] = React.useState(false);
     const [appDate, handleAppDateChange] = React.useState(new Date());
     const [availableDoctors, setAvailableDoctors] = React.useState([]);
+    const history = useHistory();
 
     useEffect(() => {
         axios.get(`http://localhost:8080/clinic/getAll`).
@@ -90,6 +92,23 @@ export default function GetAppointmentPanel() {
             setAvailableDoctors(response.data);
         })
 
+    }
+
+    const handleAppointmentButton = (event) => {
+        const doctorId = event.currentTarget.value;
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/appointment/add',
+            data: {
+                "app_date": appDate,
+                "patient_id": props.userDetails.patient_id,
+                "doctor_id": doctorId
+            }
+        }).then(response => {
+            console.log(response.data);
+            history.push("/patient");
+        })
     }
 
     const handleChange = (event) => {
@@ -165,6 +184,7 @@ export default function GetAppointmentPanel() {
                                     <TableRow>
                                         <StyledTableCell>Doctor Name</StyledTableCell>
                                         <StyledTableCell>Appointment Date</StyledTableCell>
+                                        <StyledTableCell>Actions</StyledTableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -173,6 +193,17 @@ export default function GetAppointmentPanel() {
                                             <StyledTableCell>{row.first_name + " " + row.middle_name + " " + row.last_name}</StyledTableCell>
                                             <StyledTableCell >
                                                 {appDate.toLocaleString().substring(0, 10)}
+                                            </StyledTableCell>
+                                            <StyledTableCell>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={handleAppointmentButton}
+                                                    key={row.doctor_id}
+                                                    value={row.doctor_id}
+                                                >
+                                                    Get Appointment
+                                                </Button>
                                             </StyledTableCell>
                                         </StyledTableRow>
                                     ))}

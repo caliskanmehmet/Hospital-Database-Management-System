@@ -77,7 +77,6 @@ CREATE TABLE Appointment (
         app_id INTEGER NOT NULL AUTO_INCREMENT,
         app_status VARCHAR(15) NOT NULL,
         app_date DATE NOT NULL,
-        app_time TIME NOT NULL,
         patient_id INTEGER NOT NULL,
         doctor_id INTEGER NOT NULL,
         PRIMARY KEY (app_id),

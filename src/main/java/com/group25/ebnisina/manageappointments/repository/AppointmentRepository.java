@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -26,11 +25,11 @@ public interface AppointmentRepository extends org.springframework.data.reposito
             "ORDER BY A.app_date DESC", nativeQuery = true)
     List<Appointment> getAppointmentsOfPatient(int patient_id);
 
-    @Query(value = "INSERT INTO Appointment (app_status, app_date, app_time, patient_id, doctor_id) VALUES" +
-            "('Pending', ?1, ?2, ?3, ?4)", nativeQuery = true)
+    @Query(value = "INSERT INTO Appointment (app_status, app_date, patient_id, doctor_id) VALUES" +
+            "('Pending', ?1, ?2, ?3)", nativeQuery = true)
     @Modifying
     @Transactional
-    void addAppointment(LocalDate app_date, LocalTime app_time, int patient_id, int doctor_id);
+    void addAppointment(LocalDate app_date, int patient_id, int doctor_id);
 
     @Query(value = "INSERT INTO Symptoms_during_visit (app_id, symptom_id) VALUES" +
             "(?1, ?2)", nativeQuery = true)

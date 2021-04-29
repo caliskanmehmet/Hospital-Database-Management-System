@@ -58,7 +58,7 @@ export default function AppointmentList(props) {
                 <Table className={classes.table} aria-label="customized table">
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell>Appointment Date and Time</StyledTableCell>
+                            <StyledTableCell>Appointment Date</StyledTableCell>
                             <StyledTableCell>Appointment Status</StyledTableCell>
                             <StyledTableCell>Doctor Name</StyledTableCell>
                             <StyledTableCell>Clinic</StyledTableCell>
@@ -69,7 +69,7 @@ export default function AppointmentList(props) {
                         {appointments.map((row) => (
                             <StyledTableRow key={row.app_id}>
                                 <StyledTableCell >
-                                    {new Date(Date.parse(row.app_date)).toLocaleString().substring(0, 10) + " - " + row.app_time}
+                                    {new Date(Date.parse(row.app_date)).toLocaleString().substring(0, 10)}
                                 </StyledTableCell>
                                 <StyledTableCell>{row.app_status}</StyledTableCell>
                                 <StyledTableCell>

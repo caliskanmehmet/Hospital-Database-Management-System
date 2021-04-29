@@ -198,7 +198,7 @@ export default function PatientPanel() {
                     <div className="App">
                         <Route path="/patient" exact component={() => <HomePage userDetails={userDetails} />} />
                         <Route path="/patient/tests" exact component={TestResultsPanel} />
-                        <Route path="/patient/getAppointment" exact component={GetAppointmentPanel} />
+                        <Route path="/patient/getAppointment" exact component={() => <GetAppointmentPanel userDetails={userDetails} />} />
                     </div>
             </main>
         </div>

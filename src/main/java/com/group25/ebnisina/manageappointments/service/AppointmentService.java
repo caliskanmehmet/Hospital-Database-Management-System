@@ -22,7 +22,7 @@ public class AppointmentService {
     }
 
     public void addAppointment(Appointment appointment) {
-        appointmentRepository.addAppointment(appointment.getApp_date(), appointment.getApp_time(),
+        appointmentRepository.addAppointment(appointment.getApp_date(),
                 appointment.getPatient_id(), appointment.getDoctor_id());
     }
 
