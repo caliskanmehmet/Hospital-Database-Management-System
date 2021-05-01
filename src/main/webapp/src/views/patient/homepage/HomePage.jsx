@@ -18,16 +18,18 @@ export default function HomePage(props) {
     const classes = useStyles();
 
     return (
-        <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={6}>
-                <Paper className={classes.paper}>
-                    <PatientDetails userDetails={props.userDetails} />
-                </Paper>
+        <div>
+            <Grid container spacing={3}>
+                <Grid item xs={12} md={8} lg={6}>
+                    <Paper className={classes.paper}>
+                        <PatientDetails userDetails={props.userDetails} />
+                    </Paper>
+                </Grid>
+                <Grid item xs={12}>
+                    <AppointmentList update={props.update} setUpdate={props.setUpdate} userDetails = {props.userDetails} />
+                </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <AppointmentList userDetails = {props.userDetails} />
-            </Grid>
-        </Grid>
+        </div>
     );
 }
 

@@ -11,6 +11,7 @@ import axios from "axios";
 import {ButtonGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import EvaluateDialog from "./EvaluateDialog";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -41,6 +42,7 @@ export default function AppointmentList(props) {
     const [appointments, setAppointments] = useState([]);
 
     useEffect(() => {
+        let isMounted = true; // note this flag denote mount status
         let userDetails = JSON.parse(localStorage.getItem('user'));
         axios.get(`http://localhost:8080/appointment/getByPatient/${userDetails.patient_id}`).
         then(response => {
@@ -49,8 +51,10 @@ export default function AppointmentList(props) {
         })
     },[])
 
+    const CustomDialog = React.forwardRef((props,ref) => <EvaluateDialog {...props} />);
+
     return (
-        <React.Fragment>
+        <>
             <Typography component="h2" variant="h6" color="primary" gutterBottom>
                 Current Appointments
             </Typography>
@@ -84,6 +88,15 @@ export default function AppointmentList(props) {
                                         <Button disabled={row.app_status === "Pending"}>
                                             Diseases
                                         </Button>
+                                        <Button color="inherit"
+                                                component={CustomDialog}
+                                                app_id={row.app_id}
+                                                app_status={row.app_status}
+                                                setUpdate={props.setUpdate}
+                                                update={props.update}
+                                        >
+                                            Evaluate
+                                        </Button>
                                     </ButtonGroup>
                                 </StyledTableCell>
                             </StyledTableRow>
@@ -91,7 +104,7 @@ export default function AppointmentList(props) {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </React.Fragment>
+        </>
 
     );
 }

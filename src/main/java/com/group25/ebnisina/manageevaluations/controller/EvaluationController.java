@@ -24,4 +24,14 @@ public class EvaluationController {
     public void addEvaluationToAppointment(@RequestBody Evaluation evaluation) {
         evaluationService.addEvaluationToAppointment(evaluation);
     }
+
+    @GetMapping("/getRating/{doctor_id}")
+    public Integer getRatingOfDoctor(@PathVariable("doctor_id") int doctor_id) {
+        return evaluationService.getRatingOfDoctor(doctor_id);
+    }
+
+    @GetMapping("/get/{doctor_id}")
+    public List<Evaluation> getEvaluationsOfDoctor(@PathVariable("doctor_id") int doctor_id) {
+        return evaluationService.getEvaluationsOfDoctor(doctor_id);
+    }
 }

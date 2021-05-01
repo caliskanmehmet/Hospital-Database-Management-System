@@ -101,6 +101,7 @@ export default function PatientPanel() {
     const [open, setOpen] = React.useState(false);
     const [userDetails, setUserDetails] = React.useState({});
     const history = useHistory();
+    const [count, setCount] = React.useState(0);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -196,7 +197,7 @@ export default function PatientPanel() {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                     <div className="App">
-                        <Route path="/patient" exact component={() => <HomePage userDetails={userDetails} />} />
+                        <Route path="/patient" exact component={() => <HomePage update={count} setUpdate={setCount} userDetails={userDetails} />} />
                         <Route path="/patient/tests" exact component={TestResultsPanel} />
                         <Route path="/patient/getAppointment" exact component={() => <GetAppointmentPanel userDetails={userDetails} />} />
                     </div>
