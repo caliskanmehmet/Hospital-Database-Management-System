@@ -15,11 +15,12 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import TableChartIcon from '@material-ui/icons/TableChart';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EventIcon from '@material-ui/icons/Event';
-import {useHistory} from "react-router-dom";
+import {Route, useHistory} from "react-router-dom";
 import HomeIcon from '@material-ui/icons/Home';
+import axios from "axios";
+import DoctorHomePage from "./homepage/DoctorHomePage";
 
 const drawerWidth = 240;
 
@@ -108,7 +109,13 @@ export default function DoctorPanel() {
     };
 
     useEffect(() => {
-
+        let userDetails = JSON.parse(localStorage.getItem('user'));
+        console.log(userDetails);
+        axios.get(`http://localhost:8080/doctor/get/${userDetails.doctor_id}`).
+        then(response => {
+            setUserDetails(response.data);
+            console.log(response.data);
+        })
     },[])
 
     return (
@@ -163,13 +170,7 @@ export default function DoctorPanel() {
                         </ListItemIcon>
                         <ListItemText primary="Home Page"/>
                     </ListItem>
-                    <ListItem button onClick={() => history.push("/doctor/tests") } key = "tests">
-                        <ListItemIcon>
-                            <TableChartIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Tests"/>
-                    </ListItem>
-                    <ListItem button onClick={() => history.push("/doctor/getAppointment") } key = "appointments">
+                    <ListItem button onClick={() => history.push("/doctor/offday") } key = "appointments">
                         <ListItemIcon>
                             <EventIcon/>
                         </ListItemIcon>
@@ -186,15 +187,13 @@ export default function DoctorPanel() {
                     </ListItem>
                 </List>
             </Drawer>
-            {/*TODO
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <div className="App">
-                    <Route path="/doctor" exact component= {}  />
-                    <Route path="/patient/appointments" exact component= {}  />
-                    <Route path="/patient/offdays" exact component= {}  />
+                    <Route path="/doctor" exact component= {() => <DoctorHomePage update={count} setUpdate={setCount} userDetails={userDetails} />}  />
+                    {/*<Route path="/patient/offdays" exact component= {}  />*/}
                 </div>
-            </main>*/}
+            </main>
         </div>
     );
 }

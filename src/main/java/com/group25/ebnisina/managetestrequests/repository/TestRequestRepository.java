@@ -24,6 +24,12 @@ public interface TestRequestRepository extends org.springframework.data.reposito
             "ORDER BY TR.request_date_time DESC", nativeQuery = true)
     List<TestRequest> getTestRequestsOfAppointment(int app_id);
 
+    @Query(value = "SELECT TR.*, TT.name " +
+            "FROM Test_request TR, Test_type TT, Process P " +
+            "WHERE TR.request_id = P.request_id AND TR.test_type_id = TT.type_id AND P.laboratorian_id = ?1 " +
+            "ORDER BY TR.request_date_time DESC", nativeQuery = true)
+    List<TestRequest> getTestRequestsOfLaboratorian(int laboratorian_id);
+
     @Query(value = "INSERT INTO Test_request (status, request_date_time, app_id, test_type_id) VALUES" +
             "('Assigned', ?1, ?2, ?3)", nativeQuery = true)
     @Modifying

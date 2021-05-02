@@ -30,8 +30,13 @@ public class TestRequestController {
         return testRequestService.getTestRequestWithRequestId(request_id);
     }
 
-    @PostMapping("/add")
-    public void addTestRequest(@RequestBody TestRequest testRequest) {
-        testRequestService.addTestRequest(testRequest);
+    @GetMapping("/getByLaboratorian/{laboratorian_id}")
+    public List<TestRequest> getTestRequestsOfLaboratorian(@PathVariable("laboratorian_id") int laboratorian_id) {
+        return testRequestService.getTestRequestsOfLaboratorian(laboratorian_id);
+    }
+
+    @PostMapping("/add/{app_id}")
+    public void addTestRequest(@PathVariable("app_id") int app_id, @RequestBody List<Integer> testTypes) {
+        testRequestService.addTestRequest(app_id, testTypes);
     }
 }

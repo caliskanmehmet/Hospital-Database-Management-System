@@ -4,7 +4,6 @@ import com.group25.ebnisina.manageprocess.repository.ProcessRepository;
 import com.group25.ebnisina.manageresults.entity.Result;
 import com.group25.ebnisina.manageresults.repository.ResultRepository;
 import com.group25.ebnisina.managetestcomponents.service.TestComponentService;
-import com.group25.ebnisina.managetestrequests.entity.TestRequest;
 import com.group25.ebnisina.managetestrequests.repository.TestRequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,14 +27,15 @@ public class ResultService {
         return resultRepository.getPastResultsOfParameter(test_type_id, parameter_name, patient_id);
     }
 
-    public void addResultToTestRequest(Result result) {
-        int testRequestId = result.getRequest_id();
+    public void addResultToTestRequest(List<Result> result) {
+        int testRequestId = result.get(0).getRequest_id();
 
-        TestRequest testRequest = testRequestRepository.getTestRequestWithRequestId(testRequestId);
-        int countOfParameters = testComponentService.getComponentCountOfTestType(result.getTest_type_id());
+        int countOfParameters = testComponentService.getComponentCountOfTestType(result.get(0).getTest_type_id());
 
-        resultRepository.addResultToTestRequest(result.getScore(), result.getTest_type_id(), result.getParameter_name(),
-                testRequestId);
+        result.forEach(row -> {
+            resultRepository.addResultToTestRequest(row.getScore(), row.getTest_type_id(), row.getParameter_name(),
+                    testRequestId);
+        });
 
         int countOfResults = resultRepository.getResultCountOfTestRequest(testRequestId);
 

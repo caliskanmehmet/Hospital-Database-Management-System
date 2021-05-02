@@ -27,7 +27,7 @@ public class ResultController {
     }
 
     @PostMapping("/add")
-    public void addResultToTestRequest(@RequestBody Result result) {
+    public void addResultToTestRequest(@RequestBody List<Result> result) {
         resultService.addResultToTestRequest(result);
     }
 }

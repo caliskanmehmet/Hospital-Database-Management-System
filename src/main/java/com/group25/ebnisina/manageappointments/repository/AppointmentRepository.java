@@ -51,4 +51,18 @@ public interface AppointmentRepository extends org.springframework.data.reposito
     @Transactional
     void updateAppointmentToEvaluated(int app_id);
 
+    @Query(value = "UPDATE Appointment " +
+            "SET app_status = 'Test Requested' " +
+            "WHERE app_id = ?1", nativeQuery = true)
+    @Modifying
+    @Transactional
+    void updateAppointmentToTestRequested(int app_id);
+
+    @Query(value = "UPDATE Appointment " +
+            "SET app_status = 'Test Finished' " +
+            "WHERE app_id = ?1", nativeQuery = true)
+    @Modifying
+    @Transactional
+    void updateAppointmentToTestFinished(int app_id);
+
 }
