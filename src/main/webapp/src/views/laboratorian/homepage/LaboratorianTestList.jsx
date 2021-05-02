@@ -11,6 +11,7 @@ import axios from "axios";
 import {ButtonGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import {useHistory} from "react-router-dom";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -39,11 +40,11 @@ const useStyles = makeStyles({
 export default function LaboratorianTestList(props) {
     const classes = useStyles();
     const [tests, setTests] = useState([]);
+    const history = useHistory();
 
     useEffect(() => {
         let userDetails = JSON.parse(localStorage.getItem('user'));
-        axios.get(`http://localhost:8080/testRequest/getByLaboratorian/${userDetails.laboratorian_id}`).
-        then(response => {
+        axios.get(`http://localhost:8080/testRequest/getByLaboratorian/${userDetails.laboratorian_id}`).then(response => {
             console.log(response.data);
             setTests(response.data);
         })
@@ -74,7 +75,8 @@ export default function LaboratorianTestList(props) {
                                 <StyledTableCell>{row.name}</StyledTableCell>
                                 <StyledTableCell>
                                     <ButtonGroup color="primary" variant="outlined">
-                                        <Button>
+                                        <Button onClick={() =>
+                                            history.push(`/laboratorian/test/${row.request_id}/${row.test_type_id}`) }>
                                             Process
                                         </Button>
                                     </ButtonGroup>

@@ -113,8 +113,7 @@ export default function PatientPanel() {
 
     useEffect(() => {
         let userDetails = JSON.parse(localStorage.getItem('user'));
-        const response = axios.get(`http://localhost:8080/patient/get/${userDetails.ssn}`).
-        then(response => {
+        axios.get(`http://localhost:8080/patient/get/${userDetails.ssn}`).then(response => {
             setUserDetails(response.data);
         })
     },[])

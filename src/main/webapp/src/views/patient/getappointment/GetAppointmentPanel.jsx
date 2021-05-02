@@ -63,22 +63,13 @@ export default function GetAppointmentPanel(props) {
     const history = useHistory();
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/clinic/getAll`).
-        then(response => {
+        axios.get(`http://localhost:8080/clinic/getAll`).then(response => {
             console.log(response.data);
             setClinics(response.data);
         })
     }, []);
 
-    const withoutTime = (dateTime) => {
-        const date = new Date(dateTime.getTime());
-        date.setHours(0, 0, 0, 0);
-        return date;
-    }
-
     const handleSearchButton = () => {
-        let date = appDate.toJSON().substring(0, 10);
-
         axios({
             method: 'post',
             url: 'http://localhost:8080/doctor/getFreeDoctors',

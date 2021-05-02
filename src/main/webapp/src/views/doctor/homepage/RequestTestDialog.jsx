@@ -65,8 +65,7 @@ export default function RequestTestDialog(props) {
     const [requestedTests, setRequestedTests] = React.useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/testType/getAll`).
-        then(response => {
+        axios.get(`http://localhost:8080/testType/getAll`).then(response => {
             setTestTypes(response.data);
             console.log(response.data);
         })
@@ -86,8 +85,6 @@ export default function RequestTestDialog(props) {
     };
 
     const handleRequestButton = () => {
-        const bodyFormData = new FormData();
-
         axios({
             method: 'post',
             url: `http://localhost:8080/testRequest/add/${props.app_id}`,

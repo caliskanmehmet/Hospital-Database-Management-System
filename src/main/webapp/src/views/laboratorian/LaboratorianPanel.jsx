@@ -20,6 +20,7 @@ import {Route, useHistory} from "react-router-dom";
 import HomeIcon from '@material-ui/icons/Home';
 import axios from "axios";
 import LaboratorianHomePage from "./homepage/LaboratorianHomePage";
+import TestDataGrid from "./homepage/TestDataGrid";
 
 const drawerWidth = 240;
 
@@ -110,8 +111,7 @@ export default function LaboratorianPanel() {
     useEffect(() => {
         let userDetails = JSON.parse(localStorage.getItem('user'));
         console.log(userDetails);
-        axios.get(`http://localhost:8080/laboratorian/get/${userDetails.laboratorian_id}`).
-        then(response => {
+        axios.get(`http://localhost:8080/laboratorian/get/${userDetails.laboratorian_id}`).then(response => {
             setUserDetails(response.data);
         })
     },[])
@@ -183,7 +183,7 @@ export default function LaboratorianPanel() {
                 <div className={classes.toolbar} />
                 <div className="App">
                     <Route path="/laboratorian" exact component= {() => <LaboratorianHomePage update={count} setUpdate={setCount} userDetails={userDetails} />}  />
-                    {/*<Route path="/patient/offdays" exact component= {}  />*/}
+                    <Route path="/laboratorian/test/:requestId/:typeId" component= {TestDataGrid}  />
                 </div>
             </main>
         </div>

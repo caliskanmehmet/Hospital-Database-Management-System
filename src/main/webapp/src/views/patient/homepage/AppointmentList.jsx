@@ -42,10 +42,8 @@ export default function AppointmentList(props) {
     const [appointments, setAppointments] = useState([]);
 
     useEffect(() => {
-        let isMounted = true; // note this flag denote mount status
         let userDetails = JSON.parse(localStorage.getItem('user'));
-        axios.get(`http://localhost:8080/appointment/getByPatient/${userDetails.patient_id}`).
-        then(response => {
+        axios.get(`http://localhost:8080/appointment/getByPatient/${userDetails.patient_id}`).then(response => {
             console.log(response.data);
             setAppointments(response.data);
         })
