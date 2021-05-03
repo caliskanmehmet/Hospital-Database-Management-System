@@ -1,7 +1,7 @@
 import React, {useEffect} from "react"
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {DataGrid} from '@material-ui/data-grid';
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
@@ -17,6 +17,7 @@ export default function TestDataGrid(props) {
     const classes = useStyles();
     const [components, setComponents] = React.useState([]);
     let { requestId, typeId } = useParams();
+    const history = useHistory();
 
     const columns = [
         { field: 'parameter_name', headerName: 'Parameter Name', width: 200 },
@@ -51,11 +52,53 @@ export default function TestDataGrid(props) {
 
     useEffect(() => {
         let count = 0;
+        let fetchedComponents = [];
+        let results = [];
+
         axios.get(`http://localhost:8080/testComponent/get/${typeId}`).then(response => {
-            setComponents(response.data.map(v => ({...v, score: 0.0, id: count++ })));
-        })
+            fetchedComponents = response.data.map(v => ({...v, score: 0.0, id: count++ }));
+
+            axios.get(`http://localhost:8080/result/getByTest/${requestId}`).then(response => {
+                results = response.data;
+
+                results.forEach((element, index) => {
+                    fetchedComponents.every((element2, index2) => {
+                        if (element.parameter_name === element2.parameter_name) {
+                            element2.score = element.score;
+                            return false;
+                        }
+                        else {
+                            return true;
+                        }
+                    })
+                })
+
+                setComponents(fetchedComponents);
+            });
+
+
+        });
+
+        // setComponents(response.data.map(v => ({...v, score: 0.0, id: count++ })));
         // eslint-disable-next-line
     },[])
+
+    const handleSubmitButton = () => {
+        const results = components.filter(component => component.score !== 0)
+                                  .map(component => ({score: component.score, test_type_id: component.test_type_id,
+                                                    parameter_name: component.parameter_name, request_id: requestId}));
+
+        console.log(results);
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/result/add',
+            data: results
+        }).then(response => {
+            history.push('/laboratorian');
+        })
+
+    }
 
     return(
         <Container maxWidth="lg">
@@ -72,7 +115,7 @@ export default function TestDataGrid(props) {
             <Button
                 color="primary"
                 variant="contained"
-                onClick={() => console.log(components)}
+                onClick={handleSubmitButton}
                 className={classes.button}
             >
                 Submit

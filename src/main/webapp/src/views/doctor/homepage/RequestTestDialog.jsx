@@ -65,10 +65,16 @@ export default function RequestTestDialog(props) {
     const [requestedTests, setRequestedTests] = React.useState([]);
 
     useEffect(() => {
+        let isMounted = true;
+
         axios.get(`http://localhost:8080/testType/getAll`).then(response => {
-            setTestTypes(response.data);
-            console.log(response.data);
+            if (isMounted) {
+                setTestTypes(response.data);
+                console.log(response.data);
+            }
         })
+
+        return () => { isMounted = false };
     },[])
 
     const handleClickOpen = () => {

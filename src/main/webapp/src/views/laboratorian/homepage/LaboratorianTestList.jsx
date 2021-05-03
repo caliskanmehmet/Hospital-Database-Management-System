@@ -69,7 +69,7 @@ export default function LaboratorianTestList(props) {
                         {tests.map((row) => (
                             <StyledTableRow key={row.request_id}>
                                 <StyledTableCell>{row.status}</StyledTableCell>
-                                <StyledTableCell >
+                                <StyledTableCell>
                                     {new Date(Date.parse(row.request_date_time)).toLocaleString()}
                                 </StyledTableCell>
                                 <StyledTableCell>{row.name}</StyledTableCell>

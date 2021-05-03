@@ -12,6 +12,7 @@ import {ButtonGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import RequestTestDialog from "./RequestTestDialog";
+import TestResultsDialog from "./TestResultsDialog";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -79,9 +80,7 @@ export default function DoctorAppointmentList(props) {
                                 <StyledTableCell>
                                     <ButtonGroup color="primary" variant="outlined">
                                         <RequestTestDialog app_id={row.app_id} disabled={(row.app_status === "Finalized")}/>
-                                        <Button>
-                                            Check Test Results
-                                        </Button>
+                                        <TestResultsDialog app_id={row.app_id}/>
                                         <Button>
                                             Diagnose
                                         </Button>

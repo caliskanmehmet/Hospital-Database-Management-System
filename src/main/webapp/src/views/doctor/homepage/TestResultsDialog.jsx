@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -8,27 +8,28 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {AppBar, Box, Tab, Tabs} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
+import axios from "axios";
+import {DataGrid} from "@material-ui/data-grid";
+import useDidMountEffect from "../customhook/useDidMountEffect";
 
-const useStyles = makeStyles((theme) => ({
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-        margin: 'auto',
-        width: 'fit-content',
-    },
-    formControl: {
-        marginTop: theme.spacing(2),
-        minWidth: 120,
-    },
-    formControlLabel: {
-        marginTop: theme.spacing(1),
-    },
-    root: {
-        flexGrow: 1,
-        width: '100%',
-        backgroundColor: theme.palette.background.paper,
-    },
-}));
+const useStyles = makeStyles((theme) => {
+
+    return {
+        root: {
+            '& .super-app-theme--Problem': {
+                backgroundColor: '#fa9d9d',
+            },
+            '& .super-app-theme--Ok': {
+                backgroundColor: '#ffffff',
+            },
+        },
+        appBar:  {
+            flexGrow: 1,
+            width: '100%',
+            backgroundColor: theme.palette.background.paper,
+        }
+    };
+});
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -43,7 +44,7 @@ function TabPanel(props) {
         >
             {value === index && (
                 <Box p={3}>
-                    <Typography>{children}</Typography>
+                    <Typography component={'span'}>{children}</Typography>
                 </Box>
             )}
         </div>
@@ -57,12 +58,20 @@ function a11yProps(index) {
     };
 }
 
-export default function TestResultsDialog() {
+export default function TestResultsDialog(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [fullWidth, setFullWidth] = React.useState(true);
-    const [maxWidth, setMaxWidth] = React.useState('lg');
     const [value, setValue] = React.useState(0);
+    const [testRequests, setTestRequests] = React.useState([]);
+    const [components, setComponents] = React.useState([]);
+
+    const columns = [
+        { field: 'parameter_name', headerName: 'Parameter Name', width: 200 },
+        { field: 'unit', headerName: 'Unit', width: 130 },
+        { field: 'min_value', headerName: 'Min Value', width: 130, type: 'number', },
+        { field: 'max_value', headerName: 'Max Value', width: 130, type: 'number', },
+        { field: 'score', headerName: 'Score', type: 'number', width: 90, }
+    ];
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -72,38 +81,51 @@ export default function TestResultsDialog() {
         setOpen(false);
     };
 
-    const handleMaxWidthChange = (event) => {
-        setMaxWidth(event.target.value);
-    };
-
-    const handleFullWidthChange = (event) => {
-        setFullWidth(event.target.checked);
-    };
-
     const handleTabChange = (event, newValue) => {
+        console.log(newValue);
         setValue(newValue);
     };
+
+    useEffect(() => {
+        let isMounted = true;
+
+        axios.get(`http://localhost:8080/testRequest/getByAppointment/${props.app_id}`).then(response => {
+            if (isMounted) {
+                console.log(response.data);
+                setTestRequests(response.data);
+            }
+        })
+
+        return () => { isMounted = false };
+    },[props.app_id])
+
+    useDidMountEffect(() => {
+        axios.get(`http://localhost:8080/result/getByTest/${testRequests[value].request_id}`).then(response => {
+            let count = 0;
+            setComponents(response.data.map(v => ({...v, id: count++ })));
+        })
+    },[value, testRequests])
 
     return (
         <React.Fragment>
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Request Test
+                Check Test Results
             </Button>
             <Dialog
-                fullWidth={fullWidth}
-                maxWidth={maxWidth}
+                fullWidth={true}
+                maxWidth={'lg'}
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="max-width-dialog-title"
             >
-                <DialogTitle id="max-width-dialog-title">Optional sizes</DialogTitle>
+                <DialogTitle id="max-width-dialog-title">Test Results</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        You can set my maximum width and whether to adapt or not.
+                        You can set the test results in this dialog.
                     </DialogContentText>
-                    <AppBar position="static" color="default" className={classes.root}>
+                    <AppBar position="static" color="default" className={classes.appBar}>
                         <Tabs
-                            value={1}
+                            value={value}
                             onChange={handleTabChange}
                             indicatorColor="primary"
                             textColor="primary"
@@ -111,36 +133,24 @@ export default function TestResultsDialog() {
                             scrollButtons="auto"
                             aria-label="scrollable auto tabs example"
                         >
-                            <Tab label="Item One" {...a11yProps(0)} />
-                            <Tab label="Item Two" {...a11yProps(1)} />
-                            <Tab label="Item Three" {...a11yProps(2)} />
-                            <Tab label="Item Four" {...a11yProps(3)} />
-                            <Tab label="Item Five" {...a11yProps(4)} />
-                            <Tab label="Item Six" {...a11yProps(5)} />
-                            <Tab label="Item Seven" {...a11yProps(6)} />
+                            {testRequests.map((request, index) =>
+                                (<Tab key={index} label={request.name} {...a11yProps(index)} disabled={!(request.status === 'Finalized')} />))}
                         </Tabs>
                     </AppBar>
-                    <TabPanel value={value} index={0}>
-                        Item One
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                        Item Two
-                    </TabPanel>
-                    <TabPanel value={value} index={2}>
-                        Item Three
-                    </TabPanel>
-                    <TabPanel value={value} index={3}>
-                        Item Four
-                    </TabPanel>
-                    <TabPanel value={value} index={4}>
-                        Item Five
-                    </TabPanel>
-                    <TabPanel value={value} index={5}>
-                        Item Six
-                    </TabPanel>
-                    <TabPanel value={value} index={6}>
-                        Item Seven
-                    </TabPanel>
+                    {testRequests.map((request, index) =>
+                        (<TabPanel key={index} value={value} index={index}>
+                            <div style={{ height: 400, width: '100%' }} className={classes.root}>
+                                <DataGrid
+                                    rows={components}
+                                    columns={columns}
+                                    getRowClassName={(params) => {
+                                        if (params.getValue('score') > params.getValue('max_value')  ||
+                                            params.getValue('score') < params.getValue('min_value'))
+                                        return `super-app-theme--Problem`;
+                                    }}
+                                />
+                            </div>
+                        </TabPanel>))}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
@@ -150,4 +160,5 @@ export default function TestResultsDialog() {
             </Dialog>
         </React.Fragment>
     );
+
 }

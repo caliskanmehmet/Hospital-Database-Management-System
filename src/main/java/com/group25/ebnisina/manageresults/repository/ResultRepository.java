@@ -26,8 +26,8 @@ public interface ResultRepository extends org.springframework.data.repository.Re
             "A.patient_id = ?3", nativeQuery = true)
     List<Result> getPastResultsOfParameter(int test_type_id, String parameter_name, int patient_id);
 
-    @Query(value = "INSERT INTO Result_of (score, test_type_id, parameter_name, request_id) VALUES" +
-            " (?1, ?2, ?3, ?4)", nativeQuery = true)
+    @Query(value = "REPLACE INTO Result_of (score, test_type_id, parameter_name, request_id) VALUES" +
+            " (?1, ?2, ?3, ?4) ", nativeQuery = true)
     @Modifying
     @Transactional
     void addResultToTestRequest(BigDecimal score, int test_type_id, String parameter_name, int request_id);

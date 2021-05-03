@@ -39,15 +39,18 @@ public class ResultService {
 
         int countOfResults = resultRepository.getResultCountOfTestRequest(testRequestId);
 
-        if (countOfResults == 1) {
-            // Set test status and process's status to preparing
-            processRepository.updateTestStatusToPreparing(testRequestId);
-            testRequestRepository.updateTestStatusToPreparing(testRequestId);
-        }
-        else if (countOfResults >= countOfParameters) {
+
+        if (countOfResults >= countOfParameters) {
             // Set test status to finalized
             processRepository.updateTestStatusToFinalized(testRequestId);
             testRequestRepository.updateTestStatusToFinalized(testRequestId);
         }
+        else if (countOfResults == result.size()) {
+            // countOfResults were 0 before the insertion
+            // Set test status and process's status to preparing
+            processRepository.updateTestStatusToPreparing(testRequestId);
+            testRequestRepository.updateTestStatusToPreparing(testRequestId);
+        }
+
     }
 }

@@ -173,7 +173,7 @@ export default function DoctorPanel() {
                         <ListItemIcon>
                             <EventIcon/>
                         </ListItemIcon>
-                        <ListItemText primary="Get Appointment"/>
+                        <ListItemText primary="Manage Off Days"/>
                     </ListItem>
                 </List>
                 <Divider />
