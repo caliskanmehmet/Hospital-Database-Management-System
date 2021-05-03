@@ -135,7 +135,7 @@ export default function GetAppointmentPanel(props) {
                                 value={selectedClinicId}
                                 onChange={handleChange}
                             >
-                                {clinics.map(clinic => <MenuItem value={clinic.clinic_id}>{clinic.name}</MenuItem>)}
+                                {clinics.map(clinic => <MenuItem key={clinic.clinic_id} value={clinic.clinic_id}>{clinic.name}</MenuItem>)}
                             </Select>
                         </FormControl>
                         <FormControl className={classes.formControl}>
@@ -143,7 +143,7 @@ export default function GetAppointmentPanel(props) {
 
                                 <KeyboardDatePicker
                                     margin="normal"
-                                    disablepast
+                                    disablepast="true"
                                     id="startingDate"
                                     minDate={new Date()}
                                     minDateMessage={"Appointment date should be later than today!"}

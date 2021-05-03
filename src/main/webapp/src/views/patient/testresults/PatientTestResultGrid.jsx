@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => {
 
 export default function PatientTestResultGrid(props) {
     const [components, setComponents] = React.useState([]);
-    let { requestId, typeId } = useParams();
+    let { requestId } = useParams();
     const history = useHistory();
     const classes = useStyles();
 

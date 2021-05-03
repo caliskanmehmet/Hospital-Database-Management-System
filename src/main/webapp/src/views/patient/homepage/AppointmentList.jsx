@@ -86,15 +86,10 @@ export default function AppointmentList(props) {
                                         <Button disabled={row.app_status === "Pending"}>
                                             Diseases
                                         </Button>
-                                        <Button color="inherit"
-                                                component={CustomDialog}
-                                                app_id={row.app_id}
-                                                app_status={row.app_status}
-                                                setUpdate={props.setUpdate}
-                                                update={props.update}
-                                        >
-                                            Evaluate
-                                        </Button>
+                                        <CustomDialog app_id={row.app_id}
+                                                      app_status={row.app_status}
+                                                      setUpdate={props.setUpdate}
+                                                      update={props.update} />
                                     </ButtonGroup>
                                 </StyledTableCell>
                             </StyledTableRow>
