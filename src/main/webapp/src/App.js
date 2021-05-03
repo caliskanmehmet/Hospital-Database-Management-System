@@ -7,7 +7,7 @@ import LaboratorianPanel from "./views/laboratorian/LaboratorianPanel";
 
 export default function App() {
   const [type, setType] = React.useState("notLoggedIn");
-    const history = useHistory();
+  const history = useHistory();
 
   return (
       <Router history={history}>
@@ -15,7 +15,7 @@ export default function App() {
           <Route path="/" exact component={() => <SignIn setLoginStatus={setType} loginStatus={type} />} />
           <Route path="/logout" exact component={() => {
               localStorage.removeItem("user");
-              setType("notLoggedIn");
+              setType("notLoggedIn"); /*Causes error, fix it*/
               return(<Redirect to="/" />)} }/>
             <Route path="/patient" component={PatientPanel} />
             <Route path="/doctor" component={DoctorPanel} />

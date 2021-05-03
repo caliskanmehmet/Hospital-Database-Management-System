@@ -100,10 +100,12 @@ export default function TestResultsDialog(props) {
     },[props.app_id])
 
     useDidMountEffect(() => {
-        axios.get(`http://localhost:8080/result/getByTest/${testRequests[value].request_id}`).then(response => {
-            let count = 0;
-            setComponents(response.data.map(v => ({...v, id: count++ })));
-        })
+        if (testRequests[value]) {
+            axios.get(`http://localhost:8080/result/getByTest/${testRequests[value].request_id}`).then(response => {
+                let count = 0;
+                setComponents(response.data.map(v => ({...v, id: count++ })));
+            })
+        }
     },[value, testRequests])
 
     return (
