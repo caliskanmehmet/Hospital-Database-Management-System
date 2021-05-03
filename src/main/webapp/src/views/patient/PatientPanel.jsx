@@ -21,9 +21,10 @@ import EventIcon from '@material-ui/icons/Event';
 import axios from "axios";
 import {Route, useHistory} from "react-router-dom";
 import HomePage from "./homepage/HomePage";
-import TestResultsPanel from "./testresults/TestResultsPanel";
+import TestRequestsPanel from "./testresults/TestRequestsPanel";
 import GetAppointmentPanel from "./getappointment/GetAppointmentPanel";
 import HomeIcon from '@material-ui/icons/Home';
+import PatientTestResultGrid from "./testresults/PatientTestResultGrid";
 
 const drawerWidth = 240;
 
@@ -197,7 +198,8 @@ export default function PatientPanel() {
                 <div className={classes.toolbar} />
                     <div className="App">
                         <Route path="/patient" exact component={() => <HomePage update={count} setUpdate={setCount} userDetails={userDetails} />} />
-                        <Route path="/patient/tests" exact component={TestResultsPanel} />
+                        <Route path="/patient/tests" exact component={TestRequestsPanel} />
+                        <Route path="/patient/test/:requestId/:typeId" component= {PatientTestResultGrid}  />
                         <Route path="/patient/getAppointment" exact component={() => <GetAppointmentPanel userDetails={userDetails} />} />
                     </div>
             </main>
