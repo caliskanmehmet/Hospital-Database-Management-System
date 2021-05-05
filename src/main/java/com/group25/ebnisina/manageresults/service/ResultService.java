@@ -5,6 +5,7 @@ import com.group25.ebnisina.manageresults.entity.Result;
 import com.group25.ebnisina.manageresults.repository.ResultRepository;
 import com.group25.ebnisina.managetestcomponents.service.TestComponentService;
 import com.group25.ebnisina.managetestrequests.repository.TestRequestRepository;
+import com.group25.ebnisina.managetestrequests.service.TestRequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class ResultService {
 
     private final ResultRepository resultRepository;
     private final ProcessRepository processRepository;
+    private final TestRequestService testRequestService;
     private final TestRequestRepository testRequestRepository;
     private final TestComponentService testComponentService;
 
@@ -39,11 +41,10 @@ public class ResultService {
 
         int countOfResults = resultRepository.getResultCountOfTestRequest(testRequestId);
 
-
         if (countOfResults >= countOfParameters) {
             // Set test status to finalized
             processRepository.updateTestStatusToFinalized(testRequestId);
-            testRequestRepository.updateTestStatusToFinalized(testRequestId);
+            testRequestService.updateTestStatusToFinalized(testRequestId);
         }
         else if (countOfResults == result.size()) {
             // countOfResults were 0 before the insertion

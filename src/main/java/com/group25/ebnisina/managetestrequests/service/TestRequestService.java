@@ -40,6 +40,25 @@ public class TestRequestService {
         return testRequestRepository.getTestRequestsOfLaboratorian(laboratorian_id);
     }
 
+    public void updateTestStatusToFinalized(int request_id) {
+        testRequestRepository.updateTestStatusToFinalized(request_id);
+
+        // Update appointment status to "Tests Finished" if all requested tests are finished
+        TestRequest changedTestRequest = testRequestRepository.getTestRequestWithRequestId(request_id);
+
+        // Fetch all tests of the appointment
+        List<TestRequest> testsOfAppointment = testRequestRepository.getTestRequestsOfAppointment(changedTestRequest.getApp_id());
+
+        // Traverse and if all tests are finished, update app status to "Tests Finished"
+        for (TestRequest testRequest : testsOfAppointment) {
+            if (testRequest.getStatus().equals("Preparing") || testRequest.getStatus().equals("Assigned")) {
+                return;
+            }
+        }
+
+        appointmentRepository.updateAppointmentToTestFinished(changedTestRequest.getApp_id());
+    }
+
     @Transactional
     public void addTestRequest(int app_id, List<Integer> testTypes) {
         testTypes.forEach(test_type_id -> {
@@ -53,7 +72,7 @@ public class TestRequestService {
             Laboratorian laboratorian = eligibleLaboratorians.get(rand.nextInt(eligibleLaboratorians.size()));
 
             // Assign the test request to the laboratorian
-            TestRequest testRequest1 = testRequestRepository.getTestRequestWithAppId(app_id, test_type_id);
+            TestRequest testRequest1 = testRequestRepository.getLastTestRequest();
             processRepository.addProcess(LocalDate.now(), laboratorian.getLaboratorian_id(), testRequest1.getRequest_id());
         });
         appointmentRepository.updateAppointmentToTestRequested(app_id);

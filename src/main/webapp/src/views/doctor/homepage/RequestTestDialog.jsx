@@ -96,7 +96,7 @@ export default function RequestTestDialog(props) {
             url: `http://localhost:8080/testRequest/add/${props.app_id}`,
             data: requestedTests
         }).then(response => {
-            console.log(response.data);
+            console.log(props.update);
             props.setUpdate(props.update + 1); // trigger render
             setOpen(false);
         })

@@ -46,6 +46,11 @@ public interface TestRequestRepository extends org.springframework.data.reposito
             "WHERE TR.request_id = ?1 AND TR.test_type_id = TT.type_id", nativeQuery = true)
     TestRequest getTestRequestWithRequestId(int request_id);
 
+    @Query(value = "SELECT * " +
+            "FROM Test_request TR, Test_type TT " +
+            "WHERE TR.request_id = (SELECT LAST_INSERT_ID()) AND TR.test_type_id = TT.type_id", nativeQuery = true)
+    TestRequest getLastTestRequest();
+
     @Query(value = "UPDATE Test_request " +
             "SET status = 'Preparing' " +
             "WHERE request_id = ?1", nativeQuery = true)
