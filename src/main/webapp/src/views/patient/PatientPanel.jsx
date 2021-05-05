@@ -24,7 +24,8 @@ import HomePage from "./homepage/HomePage";
 import TestRequestsPanel from "./testresults/TestRequestsPanel";
 import GetAppointmentPanel from "./getappointment/GetAppointmentPanel";
 import HomeIcon from '@material-ui/icons/Home';
-import PatientTestResultGrid from "./testresults/PatientTestResultGrid";
+import GeneralTestViewGrid from "./testresults/GeneralTestViewGrid";
+import ComponentViewGrid from "./testresults/ComponentViewGrid";
 
 const drawerWidth = 240;
 
@@ -199,7 +200,8 @@ export default function PatientPanel() {
                     <div className="App">
                         <Route path="/patient" exact component={() => <HomePage update={count} setUpdate={setCount} userDetails={userDetails} />} />
                         <Route path="/patient/tests" exact component={TestRequestsPanel} />
-                        <Route path="/patient/test/:requestId/:typeId" component= {PatientTestResultGrid}  />
+                        <Route path="/patient/test/:requestId/:typeId" exact component= {GeneralTestViewGrid}  />
+                        <Route path="/patient/test/component/:typeId/:parameterName" exact component= {ComponentViewGrid}  />
                         <Route path="/patient/getAppointment" exact component={() => <GetAppointmentPanel userDetails={userDetails} />} />
                     </div>
             </main>

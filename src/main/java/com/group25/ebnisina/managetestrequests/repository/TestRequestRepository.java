@@ -18,7 +18,7 @@ public interface TestRequestRepository extends org.springframework.data.reposito
             "ORDER BY TR.request_date_time DESC", nativeQuery = true)
     List<TestRequest> getTestRequestsOfPatient(int patient_id);
 
-    @Query(value = "SELECT TR.*, TT.name " +
+    @Query(value = "SELECT DISTINCT TR.*, TT.name " +
             "FROM Test_request TR, Appointment A, Test_type TT " +
             "WHERE TR.app_id = ?1 AND TR.test_type_id = TT.type_id " +
             "ORDER BY TR.request_date_time DESC", nativeQuery = true)
