@@ -6,6 +6,7 @@ import com.group25.ebnisina.manageevaluations.repository.EvaluationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -24,7 +25,7 @@ public class EvaluationService {
         appointmentRepository.updateAppointmentToEvaluated(evaluation.getApp_id());
     }
 
-    public Integer getRatingOfDoctor(int doctor_id) {
+    public BigDecimal getRatingOfDoctor(int doctor_id) {
         return evaluationRepository.getRatingOfDoctor(doctor_id);
     }
 

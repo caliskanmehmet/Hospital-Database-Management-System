@@ -75,8 +75,10 @@ export default function LaboratorianTestList(props) {
                                 <StyledTableCell>{row.name}</StyledTableCell>
                                 <StyledTableCell>
                                     <ButtonGroup color="primary" variant="outlined">
-                                        <Button onClick={() =>
-                                            history.push(`/laboratorian/test/${row.request_id}/${row.test_type_id}`) }>
+                                        <Button
+                                            onClick={() => history.push(`/laboratorian/test/${row.request_id}/${row.test_type_id}`) }
+                                            disabled={row.status === "Finalized"}
+                                        >
                                             Process
                                         </Button>
                                     </ButtonGroup>

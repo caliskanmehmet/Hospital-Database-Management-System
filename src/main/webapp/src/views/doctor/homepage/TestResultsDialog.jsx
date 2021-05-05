@@ -110,7 +110,7 @@ export default function TestResultsDialog(props) {
 
     return (
         <React.Fragment>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+            <Button variant="outlined" color="primary" onClick={handleClickOpen} disabled={props.disabled}>
                 Check Test Results
             </Button>
             <Dialog

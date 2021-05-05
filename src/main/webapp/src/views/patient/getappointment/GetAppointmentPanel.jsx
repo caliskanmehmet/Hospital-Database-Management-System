@@ -187,7 +187,7 @@ export default function GetAppointmentPanel(props) {
                                                 {appDate.toLocaleString().substring(0, 10)}
                                             </StyledTableCell>
                                             <StyledTableCell >
-                                                {row.rating ? `${row.rating} / 10` : 'Unavailable'}
+                                                {row.rating ? `${Math.round(row.rating * 10) / 10} / 10` : 'Unavailable'}
                                             </StyledTableCell>
                                             <StyledTableCell>
                                                 <Button

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -14,10 +15,8 @@ public interface EvaluationRepository extends org.springframework.data.repositor
     @Query(value = "SELECT * FROM Evaluation", nativeQuery = true)
     List<Evaluation> getAllEvaluations();
 
-    @Query(value = "SELECT AVG(E.rating) " +
-            "FROM Evaluation E, Appointment A " +
-            "WHERE E.app_id = A.app_id AND A.doctor_id = ?1 ", nativeQuery = true)
-    Integer getRatingOfDoctor(int doctor_id);
+    @Query(value = "CALL RatingOfDoctor(?1)", nativeQuery = true)
+    BigDecimal getRatingOfDoctor(int doctor_id);
 
     @Query(value = "SELECT E.* " +
             "FROM Evaluation E, Appointment A " +

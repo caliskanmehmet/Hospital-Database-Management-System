@@ -5,6 +5,7 @@ import com.group25.ebnisina.manageevaluations.service.EvaluationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class EvaluationController {
     }
 
     @GetMapping("/getRating/{doctor_id}")
-    public Integer getRatingOfDoctor(@PathVariable("doctor_id") int doctor_id) {
+    public BigDecimal getRatingOfDoctor(@PathVariable("doctor_id") int doctor_id) {
         return evaluationService.getRatingOfDoctor(doctor_id);
     }
 

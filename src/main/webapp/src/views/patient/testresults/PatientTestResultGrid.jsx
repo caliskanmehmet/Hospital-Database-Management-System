@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => {
     };
 });
 
+// TODO: Detailed Component View
 export default function PatientTestResultGrid(props) {
     const [components, setComponents] = React.useState([]);
     let { requestId } = useParams();

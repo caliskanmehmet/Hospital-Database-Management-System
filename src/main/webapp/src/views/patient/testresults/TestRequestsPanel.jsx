@@ -70,7 +70,7 @@ export default function TestRequestsPanel(props) {
                     <TableBody>
                         {testRequests.map((row) => (
                             <StyledTableRow key={row.request_id}>
-                                <StyledTableCell>{row.status}</StyledTableCell>
+                                <StyledTableCell>{row.status === 'Assigned' ? 'Waiting' : row.status}</StyledTableCell>
                                 <StyledTableCell>
                                     {new Date(Date.parse(row.request_date_time)).toLocaleString()}
                                 </StyledTableCell>

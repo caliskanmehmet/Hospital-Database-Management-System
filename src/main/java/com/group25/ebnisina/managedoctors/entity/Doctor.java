@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -32,7 +33,7 @@ public class Doctor {
 
     private int clinicId;
 
-    private transient Integer rating;
+    private transient BigDecimal rating;
 
     public Doctor() {
 

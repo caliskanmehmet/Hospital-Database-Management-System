@@ -86,7 +86,7 @@ export default function DoctorAppointmentList(props) {
                                             update={props.update}
                                             setUpdate={props.setUpdate}
                                         />
-                                        <TestResultsDialog app_id={row.app_id}/>
+                                        <TestResultsDialog app_id={row.app_id} disabled={row.app_status === "Pending"}/>
                                         <AddSymptomDialog app_id={row.app_id} disabled={row.app_status === "Finalized" || row.app_status === "Evaluated"}/>
                                         <DiagnoseDialog app_id={row.app_id}
                                                         disabled={row.app_status === "Finalized" || row.app_status === "Evaluated" || row.app_status === "Tests Requested"}
