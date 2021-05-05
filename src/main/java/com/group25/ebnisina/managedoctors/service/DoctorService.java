@@ -4,6 +4,7 @@ import com.group25.ebnisina.managedoctors.dto.DoctorDTO;
 import com.group25.ebnisina.managedoctors.entity.Doctor;
 import com.group25.ebnisina.managedoctors.mapper.DoctorMapper;
 import com.group25.ebnisina.managedoctors.repository.DoctorRepository;
+import com.group25.ebnisina.manageevaluations.service.EvaluationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class DoctorService {
 
     private final DoctorRepository doctorRepository;
     private final DoctorMapper doctorMapper;
+    private final EvaluationService evaluationService;
 
     public List<Doctor> getAllDoctors() {
         return doctorRepository.getAllDoctors();
@@ -31,6 +33,10 @@ public class DoctorService {
 
     public List<DoctorDTO> getDoctorsWithDateAndClinic(int clinic_id, LocalDate date) {
         List<Doctor> doctorList = doctorRepository.getDoctorsWithDateAndClinic(clinic_id, date);
+        doctorList.forEach(doctor -> {
+            doctor.setRating(evaluationService.getRatingOfDoctor(doctor.getDoctor_id()));
+            System.out.println("Rating: " + evaluationService.getRatingOfDoctor(doctor.getDoctor_id()));
+        });
         return doctorMapper.mapToDto(doctorList);
     }
 }

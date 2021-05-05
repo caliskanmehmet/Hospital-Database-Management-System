@@ -175,6 +175,7 @@ export default function GetAppointmentPanel(props) {
                                     <TableRow>
                                         <StyledTableCell>Doctor Name</StyledTableCell>
                                         <StyledTableCell>Appointment Date</StyledTableCell>
+                                        <StyledTableCell>Rating</StyledTableCell>
                                         <StyledTableCell>Actions</StyledTableCell>
                                     </TableRow>
                                 </TableHead>
@@ -184,6 +185,9 @@ export default function GetAppointmentPanel(props) {
                                             <StyledTableCell>{row.first_name + " " + row.middle_name + " " + row.last_name}</StyledTableCell>
                                             <StyledTableCell >
                                                 {appDate.toLocaleString().substring(0, 10)}
+                                            </StyledTableCell>
+                                            <StyledTableCell >
+                                                {row.rating ? `${row.rating} / 10` : 'Unavailable'}
                                             </StyledTableCell>
                                             <StyledTableCell>
                                                 <Button

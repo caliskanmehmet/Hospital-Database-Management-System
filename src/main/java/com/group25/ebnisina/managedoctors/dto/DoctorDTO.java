@@ -14,4 +14,6 @@ public class DoctorDTO {
     private String middle_name;
 
     private String last_name;
+
+    private Integer rating;
 }

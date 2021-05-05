@@ -32,6 +32,8 @@ public class Doctor {
 
     private int clinicId;
 
+    private transient Integer rating;
+
     public Doctor() {
 
     }
