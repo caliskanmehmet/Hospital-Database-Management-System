@@ -17,9 +17,9 @@ public interface DiagnoseRepository extends org.springframework.data.repository.
             "WHERE DG.app_id = ?1 AND DG.disease_id = DS.disease_id", nativeQuery = true)
     List<Diagnose> getDiagnosesOfAppointment(int app_id);
 
-    @Query(value = "INSERT INTO Diagnose (explanation, app_id, disease_id) VALUES" +
-            "(?1, ?2, ?3)", nativeQuery = true)
+    @Query(value = "INSERT INTO Diagnose (app_id, disease_id) VALUES" +
+            "(?1, ?2)", nativeQuery = true)
     @Modifying
     @Transactional
-    void addDiagnose(String explanation, int app_id, int disease_id);
+    void addDiagnose(int app_id, int disease_id);
 }

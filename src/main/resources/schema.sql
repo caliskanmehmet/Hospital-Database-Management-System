@@ -98,8 +98,8 @@ CREATE TABLE Disease (
         PRIMARY KEY(disease_id)
 );
 
+-- TODO: Remove explanation from diagnose
 CREATE TABLE Diagnose (
-        explanation VARCHAR(500),
         app_id INTEGER NOT NULL,
         disease_id INTEGER NOT NULL,
         PRIMARY KEY (app_id, disease_id),

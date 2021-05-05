@@ -20,8 +20,8 @@ public class DiagnoseController {
         return diagnoseService.getDiagnosesOfAppointment(app_id);
     }
 
-    @PostMapping("/add")
-    public void addDiagnose(@RequestBody Diagnose diagnose) {
-        diagnoseService.addDiagnose(diagnose);
+    @PostMapping("/add/{app_id}")
+    public void addDiagnose(@PathVariable("app_id") int app_id, @RequestBody List<Integer> diseases) {
+        diagnoseService.addDiagnosesToAppointment(app_id, diseases);
     }
 }

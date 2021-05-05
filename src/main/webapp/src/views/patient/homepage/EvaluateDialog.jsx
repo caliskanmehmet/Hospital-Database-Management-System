@@ -50,7 +50,7 @@ export default function EvaluateDialog(props) {
             <Button
                 variant="outlined"
                 color="inherit"
-                disabled={!(props.app_status === "Finalized")}
+                disabled={!(props.app_status === "Finalized") || props.app_status === "Evaluated"}
                 onClick={handleClickOpen}
                 startIcon={<EditIcon />}
                 >

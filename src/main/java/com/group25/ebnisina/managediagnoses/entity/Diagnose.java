@@ -20,5 +20,4 @@ public class Diagnose {
 
     private String name;
 
-    private String explanation;
 }

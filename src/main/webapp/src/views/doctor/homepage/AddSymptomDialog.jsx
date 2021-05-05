@@ -57,19 +57,19 @@ const MenuProps = {
     },
 };
 
-export default function RequestTestDialog(props) {
+export default function AddSymptomDialog(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const [testTypes, setTestTypes] = React.useState([]);
-    const [requestedTests, setRequestedTests] = React.useState([]);
+    const [symptoms, setSymptoms] = React.useState([]);
+    const [determinedSymptoms, setDeterminedSymptoms] = React.useState([]);
 
     useEffect(() => {
         let isMounted = true;
 
-        axios.get(`http://localhost:8080/testType/getAll`).then(response => {
+        axios.get(`http://localhost:8080/symptom/getAll`).then(response => {
             if (isMounted) {
-                setTestTypes(response.data);
+                setSymptoms(response.data);
                 console.log(response.data);
             }
         })
@@ -86,26 +86,25 @@ export default function RequestTestDialog(props) {
     };
 
     const handleChange = (event) => {
-        setRequestedTests(event.target.value);
-        console.log(requestedTests);
+        setDeterminedSymptoms(event.target.value);
+        console.log(determinedSymptoms);
     };
 
     const handleRequestButton = () => {
         axios({
             method: 'post',
-            url: `http://localhost:8080/testRequest/add/${props.app_id}`,
-            data: requestedTests
+            url: `http://localhost:8080/appointment/addSymptom/${props.app_id}`,
+            data: determinedSymptoms
         }).then(response => {
             console.log(response.data);
-            props.setUpdate(props.update + 1); // trigger render
-            setOpen(false);
         })
+        setOpen(false);
     }
 
     return (
         <React.Fragment>
             <Button variant="outlined" color="primary" onClick={handleClickOpen} disabled={props.disabled}>
-                Request Test
+                Add Symptom
             </Button>
             <Dialog
                 fullWidth={true}
@@ -114,26 +113,26 @@ export default function RequestTestDialog(props) {
                 onClose={handleClose}
                 aria-labelledby="max-width-dialog-title"
             >
-                <DialogTitle id="max-width-dialog-title">Request Test</DialogTitle>
+                <DialogTitle id="max-width-dialog-title">Add Symptom</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        You can request multiple tests from this dialog.
+                        You can add symptoms from this dialog.
                     </DialogContentText>
                     <form className={classes.form} noValidate>
                         <FormControl className={classes.formControl}>
-                            <InputLabel id="demo-mutiple-name-label">Test Type</InputLabel>
+                            <InputLabel id="demo-mutiple-name-label">Symptom</InputLabel>
                             <Select
                                 labelId="demo-mutiple-name-label"
                                 id="demo-mutiple-name"
                                 multiple
-                                value={requestedTests}
+                                value={determinedSymptoms}
                                 onChange={handleChange}
                                 input={<Input />}
                                 MenuProps={MenuProps}
-                                maxwidth="true"
+                                maxWidth
                             >
-                                {testTypes.map((item) => (
-                                    <MenuItem key={item.type_id} value={item.type_id} style={getStyles(item.type_id, requestedTests, theme)}>
+                                {symptoms.map((item) => (
+                                    <MenuItem key={item.symptom_id} value={item.symptom_id} style={getStyles(item.symptom_id, determinedSymptoms, theme)}>
                                         {item.name}
                                     </MenuItem>
                                 ))}
@@ -146,7 +145,7 @@ export default function RequestTestDialog(props) {
                         Close
                     </Button>
                     <Button onClick={handleRequestButton} color="primary">
-                        Request
+                        Add
                     </Button>
                 </DialogActions>
             </Dialog>

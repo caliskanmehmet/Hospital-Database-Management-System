@@ -22,9 +22,14 @@ public class DiagnoseService {
 
     @Transactional
     public void addDiagnose(Diagnose diagnose) {
-        diagnoseRepository.addDiagnose(diagnose.getExplanation(), diagnose.getApp_id(), diagnose.getDisease_id());
+        diagnoseRepository.addDiagnose(diagnose.getApp_id(), diagnose.getDisease_id());
         appointmentRepository.updateAppointmentToFinalized(diagnose.getApp_id());
     }
 
-    // TODO: Add multiple diagnoses
+    @Transactional
+    public void addDiagnosesToAppointment(int app_id, List<Integer> diseases) {
+        diseases.forEach(disease_id -> diagnoseRepository.addDiagnose(app_id, disease_id));
+        appointmentRepository.updateAppointmentToFinalized(app_id);
+    }
+
 }

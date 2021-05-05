@@ -9,10 +9,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from "axios";
 import {ButtonGroup} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import RequestTestDialog from "./RequestTestDialog";
 import TestResultsDialog from "./TestResultsDialog";
+import AddSymptomDialog from "./AddSymptomDialog";
+import DiagnoseDialog from "./DiagnoseDialog";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -79,11 +80,15 @@ export default function DoctorAppointmentList(props) {
                                 <StyledTableCell>{row.name}</StyledTableCell>
                                 <StyledTableCell>
                                     <ButtonGroup color="primary" variant="outlined">
-                                        <RequestTestDialog app_id={row.app_id} disabled={(row.app_status === "Finalized")}/>
+                                        <RequestTestDialog
+                                            app_id={row.app_id}
+                                            disabled={row.app_status === "Finalized" || row.app_status === "Evaluated"}
+                                            update={props.update}
+                                            setUpdate={props.setUpdate}
+                                        />
                                         <TestResultsDialog app_id={row.app_id}/>
-                                        <Button>
-                                            Diagnose
-                                        </Button>
+                                        <AddSymptomDialog app_id={row.app_id} disabled={row.app_status === "Finalized" || row.app_status === "Evaluated"}/>
+                                        <DiagnoseDialog app_id={row.app_id} disabled={row.app_status === "Finalized" || row.app_status === "Evaluated"} />
                                     </ButtonGroup>
                                 </StyledTableCell>
                             </StyledTableRow>

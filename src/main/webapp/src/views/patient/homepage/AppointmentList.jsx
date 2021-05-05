@@ -9,9 +9,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from "axios";
 import {ButtonGroup} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import EvaluateDialog from "./EvaluateDialog";
+import SymptomsDialog from "./SymptomsDialog";
+import DiseasesDialog from "./DiseasesDialog";
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -80,12 +81,14 @@ export default function AppointmentList(props) {
                                 <StyledTableCell>{row.name}</StyledTableCell>
                                 <StyledTableCell>
                                     <ButtonGroup color="primary" variant="outlined">
-                                        <Button disabled={row.app_status === "Pending"}>
-                                            Symptoms
-                                        </Button>
-                                        <Button disabled={row.app_status === "Pending"}>
-                                            Diseases
-                                        </Button>
+                                        <SymptomsDialog
+                                            disabled={row.app_status === "Pending"}
+                                            app_id={row.app_id}
+                                        />
+                                        <DiseasesDialog
+                                            disabled={row.app_status === "Pending"}
+                                            app_id={row.app_id}
+                                        />
                                         <CustomDialog app_id={row.app_id}
                                                       app_status={row.app_status}
                                                       setUpdate={props.setUpdate}
