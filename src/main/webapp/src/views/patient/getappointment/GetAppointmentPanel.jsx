@@ -10,7 +10,7 @@ import Container from "@material-ui/core/Container";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-import {FormGroup} from "@material-ui/core";
+import {ButtonGroup, FormGroup} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -20,6 +20,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import {useHistory} from "react-router-dom";
+import EvaluationsDialog from "./EvaluationsDialog";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -140,7 +141,6 @@ export default function GetAppointmentPanel(props) {
                         </FormControl>
                         <FormControl className={classes.formControl}>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-
                                 <KeyboardDatePicker
                                     margin="normal"
                                     disablepast="true"
@@ -190,15 +190,18 @@ export default function GetAppointmentPanel(props) {
                                                 {row.rating ? `${Math.round(row.rating * 10) / 10} / 10` : 'Unavailable'}
                                             </StyledTableCell>
                                             <StyledTableCell>
-                                                <Button
-                                                    variant="contained"
-                                                    color="primary"
-                                                    onClick={handleAppointmentButton}
-                                                    key={row.doctor_id}
-                                                    value={row.doctor_id}
-                                                >
-                                                    Get Appointment
-                                                </Button>
+                                                <ButtonGroup>
+                                                    <Button
+                                                        variant="contained"
+                                                        color="primary"
+                                                        onClick={handleAppointmentButton}
+                                                        key={row.doctor_id}
+                                                        value={row.doctor_id}
+                                                    >
+                                                        Get Appointment
+                                                    </Button>
+                                                    <EvaluationsDialog doctorId={row.doctor_id } />
+                                                </ButtonGroup>
                                             </StyledTableCell>
                                         </StyledTableRow>
                                     ))}
