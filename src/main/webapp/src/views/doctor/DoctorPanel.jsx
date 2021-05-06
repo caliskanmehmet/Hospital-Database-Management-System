@@ -21,6 +21,7 @@ import {Route, useHistory} from "react-router-dom";
 import HomeIcon from '@material-ui/icons/Home';
 import axios from "axios";
 import DoctorHomePage from "./homepage/DoctorHomePage";
+import AddOffDayPanel from "./offday/AddOffDayPanel";
 
 const drawerWidth = 240;
 
@@ -190,7 +191,7 @@ export default function DoctorPanel() {
                 <div className={classes.toolbar} />
                 <div className="App">
                     <Route path="/doctor" exact component= {() => <DoctorHomePage update={count} setUpdate={setCount} userDetails={userDetails} />}  />
-                    {/*<Route path="/patient/offdays" exact component= {}  />*/}
+                    <Route path="/doctor/offday" exact component= {AddOffDayPanel}  />
                 </div>
             </main>
         </div>

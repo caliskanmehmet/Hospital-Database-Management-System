@@ -19,6 +19,8 @@ DROP TABLE IF EXISTS person^;
 DROP TABLE IF EXISTS test_type^;
 DROP VIEW IF EXISTS AppointmentsOfCurrentMonth^;
 DROP PROCEDURE IF EXISTS RatingOfDoctor^;
+DROP TRIGGER IF EXISTS AfterOffDayInsertion^;
+DROP TRIGGER IF EXISTS CheckAppointmentDate^;
 
 CREATE TABLE Person (
         id   INTEGER  NOT NULL AUTO_INCREMENT,
@@ -204,4 +206,18 @@ BEGIN
     WHERE E.app_id = A.app_id AND A.doctor_id = doctor_id;
 END ^;
 
--- TODO: Add a trigger which deletes appointments when a doctor gets off day
+-- Add a trigger which deletes appointments when a doctor gets off day
+CREATE TRIGGER AfterOffDayInsertion AFTER INSERT ON Off_days_of_doctor
+    FOR EACH ROW BEGIN
+    DELETE FROM Appointment
+    WHERE Appointment.doctor_id = NEW.doctor_id;
+END ^;
+
+-- This trigger checks whether the appointment date is smaller than current date or not
+-- CURDATE, NOW are not allowed in CHECK clauses!
+CREATE TRIGGER CheckAppointmentDate BEFORE INSERT ON Appointment
+    FOR EACH ROW BEGIN
+        IF NEW.app_date < DATE(CURDATE()) THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'WARNING: app_date can not be smaller than today!';
+        END IF;
+END ^;

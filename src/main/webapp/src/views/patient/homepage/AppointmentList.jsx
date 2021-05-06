@@ -86,7 +86,7 @@ export default function AppointmentList(props) {
                                             app_id={row.app_id}
                                         />
                                         <DiseasesDialog
-                                            disabled={row.app_status === "Pending"}
+                                            disabled={!(row.app_status === "Finalized" || row.app_status === "Evaluated")}
                                             app_id={row.app_id}
                                         />
                                         <CustomDialog app_id={row.app_id}
