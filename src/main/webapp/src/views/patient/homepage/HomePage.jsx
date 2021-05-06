@@ -26,7 +26,12 @@ export default function HomePage(props) {
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
-                    <AppointmentList update={props.update} setUpdate={props.setUpdate} userDetails = {props.userDetails} />
+                    <AppointmentList
+                         setEvaluationSuccess={props.setEvaluationSuccess}
+                         update={props.update}
+                         setUpdate={props.setUpdate}
+                         userDetails = {props.userDetails}
+                    />
                 </Grid>
             </Grid>
         </div>

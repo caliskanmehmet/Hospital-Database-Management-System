@@ -92,7 +92,9 @@ export default function AppointmentList(props) {
                                         <CustomDialog app_id={row.app_id}
                                                       app_status={row.app_status}
                                                       setUpdate={props.setUpdate}
-                                                      update={props.update} />
+                                                      update={props.update}
+                                                      setEvaluationSuccess={props.setEvaluationSuccess}
+                                        />
                                     </ButtonGroup>
                                 </StyledTableCell>
                             </StyledTableRow>

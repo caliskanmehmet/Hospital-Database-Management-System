@@ -210,7 +210,7 @@ END ^;
 CREATE TRIGGER AfterOffDayInsertion AFTER INSERT ON Off_days_of_doctor
     FOR EACH ROW BEGIN
     DELETE FROM Appointment
-    WHERE Appointment.doctor_id = NEW.doctor_id;
+    WHERE Appointment.doctor_id = NEW.doctor_id AND Appointment.app_date = NEW.off_date;
 END ^;
 
 -- This trigger checks whether the appointment date is smaller than current date or not

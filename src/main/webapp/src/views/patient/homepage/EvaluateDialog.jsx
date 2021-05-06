@@ -40,7 +40,8 @@ export default function EvaluateDialog(props) {
             }
         }).then(response => {
             console.log(response.data);
-            props.setUpdate(props.update + 1); // Trigger render
+            props.setEvaluationSuccess(true);
+            // props.setUpdate(props.update + 1); // Trigger render
             handleClose();
         })
     }

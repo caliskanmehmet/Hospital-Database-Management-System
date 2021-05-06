@@ -10,7 +10,7 @@ import Container from "@material-ui/core/Container";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-import {ButtonGroup, FormGroup} from "@material-ui/core";
+import {ButtonGroup, FormGroup, Snackbar} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -21,6 +21,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import {useHistory} from "react-router-dom";
 import EvaluationsDialog from "./EvaluationsDialog";
+import {Alert} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -61,6 +62,8 @@ export default function GetAppointmentPanel(props) {
     const [open, setOpen] = React.useState(false);
     const [appDate, handleAppDateChange] = React.useState(new Date());
     const [availableDoctors, setAvailableDoctors] = React.useState([]);
+    const [isWarningOpen, setWarningOpen] = React.useState(false);
+    const [isDoctorWarningOpen, setDoctorWarningOpen] = React.useState(false);
     const history = useHistory();
 
     useEffect(() => {
@@ -71,19 +74,29 @@ export default function GetAppointmentPanel(props) {
     }, []);
 
     const handleSearchButton = () => {
-        axios({
-            method: 'post',
-            url: 'http://localhost:8080/doctor/getFreeDoctors',
-            data: {
-                "clinic_id": selectedClinicId,
-                "date": appDate
-            }
-        }).then(response => {
-            console.log(response.data);
-            // TODO: give alert if there is no doctor available
-            setAvailableDoctors(response.data);
-        })
+        if (selectedClinicId === '') {
+            setWarningOpen(true);
+        }
+        else {
+            axios({
+                method: 'post',
+                url: 'http://localhost:8080/doctor/getFreeDoctors',
+                data: {
+                    "clinic_id": selectedClinicId,
+                    "date": appDate
+                }
+            }).then(response => {
+                console.log(response.data);
 
+                // give alert if there is no doctor available
+                if (response.data.length === 0) {
+                    setDoctorWarningOpen(true);
+                }
+                else {
+                    setAvailableDoctors(response.data);
+                }
+            })
+        }
     }
 
     const handleAppointmentButton = (event) => {
@@ -99,6 +112,7 @@ export default function GetAppointmentPanel(props) {
             }
         }).then(response => {
             console.log(response.data);
+            props.setAppSuccess(true);
             history.push("/patient");
         })
     }
@@ -115,8 +129,34 @@ export default function GetAppointmentPanel(props) {
         setOpen(true);
     };
 
+    const handleWarningClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setWarningOpen(false);
+    };
+
+    const handleDoctorWarningClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setDoctorWarningOpen(false);
+    };
+
     return (
         <div>
+            <Snackbar open={isWarningOpen} autoHideDuration={5000} onClose={handleWarningClose}>
+                <Alert onClose={handleWarningClose} severity="warning" variant="filled">
+                    Please select a clinic and date!
+                </Alert>
+            </Snackbar>
+            <Snackbar open={isDoctorWarningOpen} autoHideDuration={5000} onClose={handleDoctorWarningClose}>
+                <Alert onClose={handleDoctorWarningClose} severity="warning" variant="filled">
+                    There is no available doctor with specified date and clinic!
+                </Alert>
+            </Snackbar>
             <Container maxWidth="lg">
                 <Grid
                     container

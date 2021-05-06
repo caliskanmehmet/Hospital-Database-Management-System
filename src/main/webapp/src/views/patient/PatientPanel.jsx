@@ -26,6 +26,8 @@ import GetAppointmentPanel from "./getappointment/GetAppointmentPanel";
 import HomeIcon from '@material-ui/icons/Home';
 import GeneralTestViewGrid from "./testresults/GeneralTestViewGrid";
 import ComponentViewGrid from "./testresults/ComponentViewGrid";
+import {Snackbar} from "@material-ui/core";
+import {Alert} from "@material-ui/lab";
 
 const drawerWidth = 240;
 
@@ -104,6 +106,8 @@ export default function PatientPanel() {
     const [userDetails, setUserDetails] = React.useState({});
     const history = useHistory();
     const [count, setCount] = React.useState(0);
+    const [isAppSnackbarOpen, setAppSnackbarOpen] = React.useState(false);
+    const [isEvaluateSnackbarOpen, setEvaluateSnackbarOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -111,6 +115,22 @@ export default function PatientPanel() {
 
     const handleDrawerClose = () => {
         setOpen(false);
+    };
+
+    const handleAppClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setAppSnackbarOpen(false);
+    };
+
+    const handleEvaluateClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setEvaluateSnackbarOpen(false);
     };
 
     useEffect(() => {
@@ -195,14 +215,33 @@ export default function PatientPanel() {
                     </ListItem>
                 </List>
             </Drawer>
+            <Snackbar open={isAppSnackbarOpen} autoHideDuration={5000} onClose={handleAppClose}>
+                <Alert onClose={handleAppClose} severity="success" variant="filled">
+                    Appointment is successfully taken!
+                </Alert>
+            </Snackbar>
+            <Snackbar open={isEvaluateSnackbarOpen} autoHideDuration={5000} onClose={handleEvaluateClose}>
+                <Alert onClose={handleEvaluateClose} severity="success" variant="filled">
+                    Appointment is successfully evaluated!
+                </Alert>
+            </Snackbar>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                     <div className="App">
-                        <Route path="/patient" exact component={() => <HomePage update={count} setUpdate={setCount} userDetails={userDetails} />} />
+                        <Route path="/patient" exact component={() => <HomePage
+                            update={count}
+                            setUpdate={setCount}
+                            userDetails={userDetails}
+                            setEvaluationSuccess={setEvaluateSnackbarOpen}
+                        />} />
                         <Route path="/patient/tests" exact component={TestRequestsPanel} />
                         <Route path="/patient/test/:requestId/:typeId" exact component= {GeneralTestViewGrid}  />
                         <Route path="/patient/test/component/:typeId/:parameterName" exact component= {ComponentViewGrid}  />
-                        <Route path="/patient/getAppointment" exact component={() => <GetAppointmentPanel userDetails={userDetails} />} />
+                        <Route path="/patient/getAppointment" exact component={() =>
+                            <GetAppointmentPanel
+                                setAppSuccess={setAppSnackbarOpen}
+                                userDetails={userDetails}
+                            />} />
                     </div>
             </main>
         </div>

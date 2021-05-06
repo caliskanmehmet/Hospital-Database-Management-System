@@ -69,7 +69,7 @@ export default function EvaluationsDialog(props) {
             console.log(response.data);
             setEvaluations(response.data);
         })
-    }, []);
+    }, [props.doctorId]);
 
     return (
         <div>
@@ -83,7 +83,7 @@ export default function EvaluationsDialog(props) {
                 <DialogContent dividers>
                     {evaluations.map( evaluation => {
                         return(
-                            <div>
+                            <div key={evaluation.app_id}>
                                 <Box component="fieldset" mt={1} borderColor="transparent">
                                     <Typography component="legend"><b>Rating:</b></Typography>
                                     <Rating

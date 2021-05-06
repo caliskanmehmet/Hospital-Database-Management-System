@@ -9,8 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from "axios";
-import {Card, CardContent, FormControl, FormLabel, Radio, RadioGroup} from "@material-ui/core";
+import {Card, CardContent, FormControl, FormLabel, Radio, RadioGroup, Snackbar} from "@material-ui/core";
 import {Redirect} from "react-router-dom";
+import {Alert} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -38,6 +39,7 @@ export default function SignIn(props) {
     const [value, setValue] = React.useState('patient');
     const [textfieldLabel, settextfieldLabel] = React.useState('Patient SSN');
     const [inputList, setInputList] = React.useState({});
+    const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 
     const handleChange = (event) => {
         const targetValue = event.target.value;
@@ -61,6 +63,14 @@ export default function SignIn(props) {
         setInputList(newInputList);
     }
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setSnackbarOpen(false);
+    };
+
     const loginRequest = () => {
         axios.get(`http://localhost:8080/auth/${value}`, {
             params: {
@@ -81,32 +91,12 @@ export default function SignIn(props) {
                 localStorage.setItem("user", JSON.stringify(response.data));
                 props.setLoginStatus("laboratorian");
             }
-        })
-        /*AuthService.login(inputList["username"], inputList["password"]).then(
-            () => {
-              const userData = localStorage.getItem('user')
-              const data = JSON.parse(userData)
-              if ( data.roles.includes("ROLE_ADMIN")) {
-                props.setLoginStatus("admin")
-                console.log("Logged as admin")
-              }
-              else {
-                props.setLoginStatus("user")
-                console.log("Logged as user")
-              }
-
-            },
-            error => {
-              const resMessage =
-                  (error.response &&
-                      error.response.data &&
-                      error.response.data.message) ||
-                  error.message ||
-                  error.toString();
-              setOpen(true)
-              return resMessage
+            else {
+                setSnackbarOpen(true);
             }
-        );*/
+        }).catch(err => {
+            setSnackbarOpen(true);
+        })
     }
 
     return (
@@ -116,6 +106,11 @@ export default function SignIn(props) {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
+                <Snackbar open={snackbarOpen} autoHideDuration={5000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="error" variant="filled">
+                        Wrong credentials!
+                    </Alert>
+                </Snackbar>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
