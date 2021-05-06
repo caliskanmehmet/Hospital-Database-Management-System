@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => {
     };
 });
 
-// TODO: Detailed Component View
 export default function GeneralTestViewGrid(props) {
     const [components, setComponents] = React.useState([]);
     let { requestId, typeId } = useParams();
