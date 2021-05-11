@@ -67,6 +67,20 @@ INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type
                           ('Free T4', 0.98, 1.63, 'ng/dL', 7)^;
 INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type_id) VALUES
                           ('Free T3', 2.56, 5.01, 'pg/mL', 7)^;
+INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type_id) VALUES
+                        ('CT', 24, 35, 'ng/mL', 2)^;
+INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type_id) VALUES
+                        ('HCO3', 22, 38, 'mEq/L', 3)^;
+INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type_id) VALUES
+                        ('PaO2', 75, 100, 'mmHg', 3)^;
+INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type_id) VALUES
+                        ('SaO2', 94, 100, '%', 3)^;
+INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type_id) VALUES
+                        ('ALT', 4, 36, 'U/L', 4)^;
+INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type_id) VALUES
+                        ('AST', 8, 36, 'U/L', 4)^;
+INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type_id) VALUES
+                        ('BUN', 6, 20, 'mg/dl', 4)^;
 
 -- Inserting pre-defined Doctors
 INSERT INTO Person (password, first_name, middle_name, last_name, gender, birth_date) VALUES
