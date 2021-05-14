@@ -78,6 +78,8 @@ export default function LaboratorianTestList(props) {
                                         <Button
                                             onClick={() => history.push(`/laboratorian/test/${row.request_id}/${row.test_type_id}`) }
                                             disabled={row.status === "Finalized"}
+                                            setLaboSuccess={props.setLaboSuccess}
+                                            setlabofail={props.setlabofail}
                                         >
                                             Process
                                         </Button>

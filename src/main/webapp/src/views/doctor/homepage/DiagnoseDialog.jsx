@@ -98,6 +98,7 @@ export default function DiagnoseDialog(props) {
         }).then(response => {
             console.log(response.data);
             props.setUpdate(props.update + 1); // trigger render
+            props.setDiagnoseSuccess(true);
         })
         setOpen(false);
     }

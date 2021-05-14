@@ -22,6 +22,9 @@ import HomeIcon from '@material-ui/icons/Home';
 import axios from "axios";
 import DoctorHomePage from "./homepage/DoctorHomePage";
 import AddOffDayPanel from "./offday/AddOffDayPanel";
+import {Alert} from "@material-ui/lab";
+//import {Snackbar} from "@material-ui/core";
+import {ButtonGroup, FormGroup, Snackbar} from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -99,7 +102,34 @@ export default function DoctorPanel() {
     const [open, setOpen] = React.useState(false);
     const [userDetails, setUserDetails] = React.useState({});
     const history = useHistory();
+    const [isDoctorSnackbarOpen, setDoctorSnackbarOpen] = React.useState(false);
+    const [isSymptomSnackbarOpen, setSymptomSnackbarOpen] = React.useState(false);
+    const [isDiagnoseSnackbarOpen, setDiagnoseSnackbarOpen] = React.useState(false);
     const [count, setCount] = React.useState(0);
+
+    const handleDoctorClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setDoctorSnackbarOpen(false);
+    };
+
+    const handleSymptomClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setSymptomSnackbarOpen(false);
+    };
+
+    const handleDiagnoseClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setDiagnoseSnackbarOpen(false);
+    };
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -120,6 +150,7 @@ export default function DoctorPanel() {
 
     return (
         <div className={classes.root}>
+
             <CssBaseline />
             <AppBar
                 position="fixed"
@@ -187,10 +218,25 @@ export default function DoctorPanel() {
                     </ListItem>
                 </List>
             </Drawer>
+            <Snackbar open={isDoctorSnackbarOpen} autoHideDuration={5000} onClose={handleDoctorClose}>
+                <Alert onClose={handleDoctorClose} severity="success" variant="filled">
+                    Test is successfully taken!
+                </Alert>
+            </Snackbar>
+            <Snackbar open={isSymptomSnackbarOpen} autoHideDuration={5000} onClose={handleSymptomClose}>
+                <Alert onClose={handleSymptomClose} severity="success" variant="filled">
+                    Symptom is successfully added!
+                </Alert>
+            </Snackbar>
+            <Snackbar open={isDiagnoseSnackbarOpen} autoHideDuration={5000} onClose={handleDiagnoseClose}>
+                <Alert onClose={handleDiagnoseClose} severity="success" variant="filled">
+                    Symptom is successfully added!
+                </Alert>
+            </Snackbar>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <div className="App">
-                    <Route path="/doctor" exact component= {() => <DoctorHomePage update={count} setUpdate={setCount} userDetails={userDetails} />}  />
+                    <Route path="/doctor" exact component= {() => <DoctorHomePage update={count} setUpdate={setCount} userDetails={userDetails} setDoctorSuccess={setDoctorSnackbarOpen} setSymptomSuccess={setSymptomSnackbarOpen}  setDiagnoseSuccess={setDiagnoseSnackbarOpen} />}  />
                     <Route path="/doctor/offday" exact component= {AddOffDayPanel}  />
                 </div>
             </main>

@@ -85,13 +85,15 @@ export default function DoctorAppointmentList(props) {
                                             disabled={row.app_status === "Finalized" || row.app_status === "Evaluated"}
                                             update={props.update}
                                             setUpdate={props.setUpdate}
+                                            setDoctorSuccess={props.setDoctorSuccess}
                                         />
                                         <TestResultsDialog app_id={row.app_id} disabled={row.app_status === "Pending"}/>
-                                        <AddSymptomDialog app_id={row.app_id} disabled={row.app_status === "Finalized" || row.app_status === "Evaluated"}/>
+                                        <AddSymptomDialog app_id={row.app_id} disabled={row.app_status === "Finalized" || row.app_status === "Evaluated"} setSymptomSuccess={props.setSymptomSuccess}/>
                                         <DiagnoseDialog app_id={row.app_id}
                                                         disabled={row.app_status === "Finalized" || row.app_status === "Evaluated" || row.app_status === "Tests Requested"}
                                                         update={props.update}
                                                         setUpdate={props.setUpdate}
+                                                        setDiagnoseSuccess={props.setDiagnoseSuccess}
                                         />
                                     </ButtonGroup>
                                 </StyledTableCell>

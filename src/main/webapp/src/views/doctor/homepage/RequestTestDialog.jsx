@@ -99,6 +99,10 @@ export default function RequestTestDialog(props) {
             console.log(props.update);
             props.setUpdate(props.update + 1); // trigger render
             setOpen(false);
+            props.setDoctorSuccess(true);
+            handleClose();
+        }).catch(response => {
+
         })
     }
 

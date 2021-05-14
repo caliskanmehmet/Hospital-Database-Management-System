@@ -96,6 +96,9 @@ export default function TestDataGrid(props) {
             data: results
         }).then(response => {
             history.push('/laboratorian');
+            props.setLaboSuccess(true);
+        }).catch(response => {
+            props.setlabofail(true);
         })
 
     }

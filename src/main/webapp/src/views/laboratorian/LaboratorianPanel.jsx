@@ -21,6 +21,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import axios from "axios";
 import LaboratorianHomePage from "./homepage/LaboratorianHomePage";
 import TestDataGrid from "./homepage/TestDataGrid";
+import {Alert} from "@material-ui/lab";
+import {Snackbar} from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -99,6 +101,8 @@ export default function LaboratorianPanel() {
     const [userDetails, setUserDetails] = React.useState({});
     const history = useHistory();
     const [count, setCount] = React.useState(0);
+    const [isLaboSnackbarOpen, setLaboSnackbarOpen] = React.useState(false);
+    const [isLaboFailSnackbarOpen, setLaboFailSnackbarOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -106,6 +110,22 @@ export default function LaboratorianPanel() {
 
     const handleDrawerClose = () => {
         setOpen(false);
+    };
+
+    const handleLaboClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setLaboSnackbarOpen(false);
+    };
+
+    const handleLaboFailClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setLaboFailSnackbarOpen(false);
     };
 
     useEffect(() => {
@@ -179,11 +199,21 @@ export default function LaboratorianPanel() {
                     </ListItem>
                 </List>
             </Drawer>
+            <Snackbar open={isLaboSnackbarOpen} autoHideDuration={5000} onClose={handleLaboClose}>
+                <Alert onClose={handleLaboClose} severity="success" variant="filled">
+                    Test processed successfully!
+                </Alert>
+            </Snackbar>
+            <Snackbar open={isLaboFailSnackbarOpen} autoHideDuration={5000} onClose={handleLaboFailClose}>
+                <Alert onClose={handleLaboFailClose} severity="error" variant="filled">
+                    The process has failed!
+                </Alert>
+            </Snackbar>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <div className="App">
                     <Route path="/laboratorian" exact component= {() => <LaboratorianHomePage update={count} setUpdate={setCount} userDetails={userDetails} />}  />
-                    <Route path="/laboratorian/test/:requestId/:typeId" component= {TestDataGrid}  />
+                    <Route path="/laboratorian/test/:requestId/:typeId" exact component= {() => <TestDataGrid setLaboSuccess={setLaboSnackbarOpen} setlabofail={setLaboFailSnackbarOpen}/>}  />
                 </div>
             </main>
         </div>

@@ -26,7 +26,7 @@ export default function LaboratorianHomePage(props) {
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
-                    <LaboratorianTestList update={props.update} setUpdate={props.setUpdate} userDetails = {props.userDetails} />
+                    <LaboratorianTestList update={props.update} setUpdate={props.setUpdate} userDetails = {props.userDetails} setLaboSuccess = {props.setLaboSuccess} setlabofail={props.setlabofail} />
                 </Grid>
             </Grid>
         </div>

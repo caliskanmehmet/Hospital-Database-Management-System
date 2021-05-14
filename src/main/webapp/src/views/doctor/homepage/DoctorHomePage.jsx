@@ -26,7 +26,7 @@ export default function DoctorHomePage(props) {
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
-                    <DoctorAppointmentList update={props.update} setUpdate={props.setUpdate} userDetails = {props.userDetails} />
+                    <DoctorAppointmentList update={props.update} setUpdate={props.setUpdate} userDetails = {props.userDetails} setDoctorSuccess = {props.setDoctorSuccess} setSymptomSuccess = {props.setSymptomSuccess} setDiagnoseSuccess = {props.setDiagnoseSuccess}/>
                 </Grid>
             </Grid>
         </div>

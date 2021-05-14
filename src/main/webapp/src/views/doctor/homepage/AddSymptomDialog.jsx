@@ -97,7 +97,13 @@ export default function AddSymptomDialog(props) {
             data: determinedSymptoms
         }).then(response => {
             console.log(response.data);
+            //props.setSymptomSuccess(true);
+
+        }).catch(response => {
+
         })
+        props.setSymptomSuccess(true);
+
         setOpen(false);
     }
 
