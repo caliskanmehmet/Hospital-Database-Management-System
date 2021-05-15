@@ -86,7 +86,9 @@ CREATE TABLE Appointment (
         doctor_id INTEGER NOT NULL,
         PRIMARY KEY (app_id),
         FOREIGN KEY (patient_id) REFERENCES Patient(patient_id),
-        FOREIGN KEY (doctor_id) REFERENCES Doctor(doctor_id)
+        FOREIGN KEY (doctor_id) REFERENCES Doctor(doctor_id),
+        INDEX (doctor_id),
+        INDEX (patient_id)
 )^;
 
 CREATE TABLE Evaluation (
@@ -103,7 +105,7 @@ CREATE TABLE Disease (
         PRIMARY KEY(disease_id)
 )^;
 
--- TODO: Remove explanation from diagnose
+
 CREATE TABLE Diagnose (
         app_id INTEGER NOT NULL,
         disease_id INTEGER NOT NULL,
@@ -112,7 +114,7 @@ CREATE TABLE Diagnose (
         FOREIGN KEY (disease_id) REFERENCES Disease(disease_id)
 )^;
 
--- TODO: Remove explanation from symptom
+
 CREATE TABLE Symptom (
         symptom_id INTEGER NOT NULL,
         name VARCHAR(50) NOT NULL,
@@ -134,7 +136,7 @@ CREATE TABLE Symptoms_during_visit (
         FOREIGN KEY (app_id) REFERENCES Appointment(app_id),
         FOREIGN KEY (symptom_id) REFERENCES Symptom(symptom_id)
 )^;
--- TODO: Change the name length
+
 CREATE TABLE Test_type (
         type_id INTEGER NOT NULL,
         name VARCHAR(50) NOT NULL,
@@ -149,7 +151,8 @@ CREATE TABLE Test_request (
         test_type_id INTEGER NOT NULL,
         PRIMARY KEY (request_id),
         FOREIGN KEY (app_id) REFERENCES Appointment(app_id),
-        FOREIGN KEY (test_type_id) REFERENCES Test_type(type_id)
+        FOREIGN KEY (test_type_id) REFERENCES Test_type(type_id),
+        INDEX (app_id, test_type_id)
 )^;
 
 CREATE TABLE Eligible_for (

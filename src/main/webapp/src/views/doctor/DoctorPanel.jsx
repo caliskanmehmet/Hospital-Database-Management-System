@@ -24,7 +24,7 @@ import DoctorHomePage from "./homepage/DoctorHomePage";
 import AddOffDayPanel from "./offday/AddOffDayPanel";
 import {Alert} from "@material-ui/lab";
 //import {Snackbar} from "@material-ui/core";
-import {ButtonGroup, FormGroup, Snackbar} from "@material-ui/core";
+import {Snackbar} from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -220,17 +220,17 @@ export default function DoctorPanel() {
             </Drawer>
             <Snackbar open={isDoctorSnackbarOpen} autoHideDuration={5000} onClose={handleDoctorClose}>
                 <Alert onClose={handleDoctorClose} severity="success" variant="filled">
-                    Test is successfully taken!
+                    Tests are successfully requested!
                 </Alert>
             </Snackbar>
             <Snackbar open={isSymptomSnackbarOpen} autoHideDuration={5000} onClose={handleSymptomClose}>
                 <Alert onClose={handleSymptomClose} severity="success" variant="filled">
-                    Symptom is successfully added!
+                    Symptoms are successfully added!
                 </Alert>
             </Snackbar>
             <Snackbar open={isDiagnoseSnackbarOpen} autoHideDuration={5000} onClose={handleDiagnoseClose}>
                 <Alert onClose={handleDiagnoseClose} severity="success" variant="filled">
-                    Symptom is successfully added!
+                    Diagnoses are successfully added!
                 </Alert>
             </Snackbar>
             <main className={classes.content}>
