@@ -240,7 +240,7 @@ export default function GetAppointmentPanel(props) {
                                                     >
                                                         Get Appointment
                                                     </Button>
-                                                    <EvaluationsDialog doctorId={row.doctor_id } />
+                                                    <EvaluationsDialog doctorId={row.doctor_id} />
                                                 </ButtonGroup>
                                             </StyledTableCell>
                                         </StyledTableRow>

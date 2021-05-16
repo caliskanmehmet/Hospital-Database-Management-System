@@ -73,7 +73,12 @@ export default function EvaluationsDialog(props) {
 
     return (
         <div>
-            <Button variant="outlined" color="inherit" onClick={handleClickOpen}>
+            <Button
+                variant="outlined"
+                color="inherit"
+                onClick={handleClickOpen}
+                disabled={evaluations.length === 0}
+            >
                 Show Evaluations
             </Button>
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
