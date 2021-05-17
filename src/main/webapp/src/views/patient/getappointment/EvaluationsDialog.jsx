@@ -81,11 +81,15 @@ export default function EvaluationsDialog(props) {
             >
                 Show Evaluations
             </Button>
-            <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+            {evaluations.length === 0 ? null : (<Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                     Evaluations
                 </DialogTitle>
                 <DialogContent dividers>
+                    <Box component="fieldset" borderColor="transparent">
+                        <Typography component="legend"><b>Minimum Rating:</b> {evaluations ? evaluations[0].min : null}   <b>Maximum Rating</b>: {evaluations ? evaluations[0].max : null}</Typography>
+                    </Box>
+                    <Divider light />
                     {evaluations.map( evaluation => {
                         return(
                             <div key={evaluation.app_id}>
@@ -106,14 +110,13 @@ export default function EvaluationsDialog(props) {
                             </div>
                         )
                     })}
-
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={handleClose} color="primary">
-                        Kapat
+                        Close
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog>)}
         </div>
     );
 }

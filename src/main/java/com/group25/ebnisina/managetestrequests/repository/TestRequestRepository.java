@@ -19,6 +19,11 @@ public interface TestRequestRepository extends org.springframework.data.reposito
             "ORDER BY TR.request_date_time DESC", nativeQuery = true)
     List<TestRequest> getTestRequestsOfPatient(int patient_id);
 
+    @Query(value = "SELECT COUNT(*) " +
+            "FROM Test_request TR, Process P " +
+            "WHERE TR.test_type_id = ?1 AND TR.request_id = P.request_id AND P.laboratorian_id = ?2", nativeQuery = true)
+    Integer getTestCountOfLaboratorian(int test_type_id, int laboratorian_id);
+
     @Query(value = "SELECT TR.*, TT.name " +
             "FROM Test_request TR, Appointment A, Test_type TT " +
             "WHERE TR.app_id = A.app_id AND A.patient_id = ?1 AND TR.test_type_id = TT.type_id AND " +

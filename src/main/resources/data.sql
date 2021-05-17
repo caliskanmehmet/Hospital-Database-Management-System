@@ -55,7 +55,7 @@ INSERT INTO Test_type(type_id,name) VALUES (5, 'Erythrocyte sedimentation rate (
 INSERT INTO Test_type(type_id,name) VALUES (6, 'C-reactive protein')^;
 INSERT INTO Test_type(type_id,name) VALUES (7, 'Hormone')^;
 
--- Inserting pre-defined Test Components, TODO: Insert More
+-- Inserting pre-defined Test Components
 INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type_id) VALUES
                           ('HGB', 13.50, 17.50, 'g/dL', 1)^;
 INSERT INTO Test_component(parameter_name, min_value, max_value, unit, test_type_id) VALUES

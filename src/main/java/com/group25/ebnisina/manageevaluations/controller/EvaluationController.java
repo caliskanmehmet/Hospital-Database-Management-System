@@ -1,6 +1,7 @@
 package com.group25.ebnisina.manageevaluations.controller;
 
 import com.group25.ebnisina.manageevaluations.entity.Evaluation;
+import com.group25.ebnisina.manageevaluations.entity.EvaluationReport;
 import com.group25.ebnisina.manageevaluations.service.EvaluationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,11 @@ public class EvaluationController {
     @GetMapping("/getAll")
     public List<Evaluation> getAllEvaluations() {
         return evaluationService.getAllEvaluations();
+    }
+
+    @GetMapping("/report")
+    public List<EvaluationReport> getReports() {
+        return evaluationService.getReports();
     }
 
     @PostMapping("/add")

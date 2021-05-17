@@ -25,4 +25,6 @@ public class TestRequest {
     int app_id;
 
     int test_type_id;
+
+    transient int request_count;
 }

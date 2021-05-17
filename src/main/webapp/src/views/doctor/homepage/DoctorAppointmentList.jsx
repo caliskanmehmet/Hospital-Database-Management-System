@@ -48,13 +48,14 @@ export default function DoctorAppointmentList(props) {
         axios.get(`http://localhost:8080/appointment/getByDoctor/${userDetails.doctor_id}`).then(response => {
             console.log(response.data);
             setAppointments(response.data);
-        })
+        });
+
     },[])
 
     return (
         <>
             <Typography component="h2" variant="h6" color="primary" gutterBottom>
-                Current Appointments
+                Current Appointments (Total appointment count of this month: {appointments.length})
             </Typography>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
@@ -75,7 +76,7 @@ export default function DoctorAppointmentList(props) {
                                 </StyledTableCell>
                                 <StyledTableCell>{row.app_status}</StyledTableCell>
                                 <StyledTableCell>
-                                    {row.first_name + " " + row.middle_name + " " + row.last_name}
+                                    {row.first_name + " " + row.middle_name + " " + row.last_name} (Appointment count from you: {row.app_count})
                                 </StyledTableCell>
                                 <StyledTableCell>{row.name}</StyledTableCell>
                                 <StyledTableCell>

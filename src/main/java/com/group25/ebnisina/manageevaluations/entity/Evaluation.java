@@ -18,4 +18,7 @@ public class Evaluation {
     private String comment;
 
     private int rating;
+
+    transient Integer min;
+    transient Integer max;
 }

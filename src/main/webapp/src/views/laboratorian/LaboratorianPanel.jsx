@@ -23,6 +23,8 @@ import LaboratorianHomePage from "./homepage/LaboratorianHomePage";
 import TestDataGrid from "./homepage/TestDataGrid";
 import {Alert} from "@material-ui/lab";
 import {Snackbar} from "@material-ui/core";
+import LaboratorianReport from "./LaboratorianReport";
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 const drawerWidth = 240;
 
@@ -188,6 +190,12 @@ export default function LaboratorianPanel() {
                         </ListItemIcon>
                         <ListItemText primary="Home Page"/>
                     </ListItem>
+                    <ListItem button onClick={() => history.push("/laboratorian/report") } key = "report">
+                        <ListItemIcon>
+                            <AssessmentIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Report"/>
+                    </ListItem>
                 </List>
                 <Divider />
                 <List>
@@ -213,6 +221,7 @@ export default function LaboratorianPanel() {
                 <div className={classes.toolbar} />
                 <div className="App">
                     <Route path="/laboratorian" exact component= {() => <LaboratorianHomePage update={count} setUpdate={setCount} userDetails={userDetails} />}  />
+                    <Route path="/laboratorian/report" exact component= {() => <LaboratorianReport userDetails={userDetails} />}  />
                     <Route path="/laboratorian/test/:requestId/:typeId" exact component= {() => <TestDataGrid setLaboSuccess={setLaboSnackbarOpen} setlabofail={setLaboFailSnackbarOpen}/>}  />
                 </div>
             </main>

@@ -1,5 +1,6 @@
 package com.group25.ebnisina.manageresults.controller;
 
+import com.group25.ebnisina.manageresults.entity.ReportResult;
 import com.group25.ebnisina.manageresults.entity.Result;
 import com.group25.ebnisina.manageresults.service.ResultService;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,10 @@ public class ResultController {
     @PostMapping("/add")
     public void addResultToTestRequest(@RequestBody List<Result> result) {
         resultService.addResultToTestRequest(result);
+    }
+
+    @GetMapping("/report")
+    public List<ReportResult> getMinAndMaxResultsOfParameters(@RequestParam int laboratorian_id) {
+        return resultService.getMinAndMaxResultsOfParameters(laboratorian_id);
     }
 }

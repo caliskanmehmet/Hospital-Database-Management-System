@@ -23,8 +23,9 @@ import axios from "axios";
 import DoctorHomePage from "./homepage/DoctorHomePage";
 import AddOffDayPanel from "./offday/AddOffDayPanel";
 import {Alert} from "@material-ui/lab";
-//import {Snackbar} from "@material-ui/core";
 import {Snackbar} from "@material-ui/core";
+import DoctorReport from "./DoctorReport";
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 const drawerWidth = 240;
 
@@ -207,6 +208,12 @@ export default function DoctorPanel() {
                         </ListItemIcon>
                         <ListItemText primary="Manage Off Days"/>
                     </ListItem>
+                    <ListItem button onClick={() => history.push("/doctor/report") } key = "report">
+                        <ListItemIcon>
+                            <AssessmentIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="Reports"/>
+                    </ListItem>
                 </List>
                 <Divider />
                 <List>
@@ -238,6 +245,7 @@ export default function DoctorPanel() {
                 <div className="App">
                     <Route path="/doctor" exact component= {() => <DoctorHomePage update={count} setUpdate={setCount} userDetails={userDetails} setDoctorSuccess={setDoctorSnackbarOpen} setSymptomSuccess={setSymptomSnackbarOpen}  setDiagnoseSuccess={setDiagnoseSnackbarOpen} />}  />
                     <Route path="/doctor/offday" exact component= {AddOffDayPanel}  />
+                    <Route path="/doctor/report" exact component= {DoctorReport}  />
                 </div>
             </main>
         </div>

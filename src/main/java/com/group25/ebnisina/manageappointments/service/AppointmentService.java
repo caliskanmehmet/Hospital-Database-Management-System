@@ -14,7 +14,13 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
 
     public List<Appointment> getAppointmentsOfDoctor(int doctorId) {
-        return appointmentRepository.getAppointmentsOfDoctor(doctorId);
+        List<Appointment> appointmentList = appointmentRepository.getAppointmentsOfDoctor(doctorId);
+        appointmentList.forEach(appointment -> appointment.setApp_count(getAppointmentCountOfPatient(appointment.getPatient_id(), appointment.getDoctor_id())));
+        return appointmentList;
+    }
+
+    public Integer getAppointmentCountOfPatient(int patientId, int doctorId) {
+        return appointmentRepository.getAppointmentCountOfPatient(patientId, doctorId);
     }
 
     public List<Appointment> getAppointmentsOfPatient(int patient_id) {

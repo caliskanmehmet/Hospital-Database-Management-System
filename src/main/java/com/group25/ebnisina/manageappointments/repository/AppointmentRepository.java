@@ -19,6 +19,11 @@ public interface AppointmentRepository extends org.springframework.data.reposito
             "ORDER BY A.app_date DESC", nativeQuery = true)
     List<Appointment> getAppointmentsOfDoctor(int doctorId);
 
+    @Query(value = "SELECT COUNT(*) " +
+            "FROM Appointment A " +
+            "WHERE A.patient_id = ?1 AND A.doctor_id = ?2", nativeQuery = true)
+    Integer getAppointmentCountOfPatient(int patientId, int doctorId);
+
     @Query(value = "SELECT * " +
             "FROM AppointmentsOfCurrentMonth A, Doctor D, Person P, Clinic C " +
             "WHERE A.patient_id = ?1 AND A.doctor_id = D.doctor_id AND D.person_id = P.id AND " +

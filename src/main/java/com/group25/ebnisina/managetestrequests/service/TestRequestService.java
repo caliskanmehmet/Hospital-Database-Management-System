@@ -49,7 +49,9 @@ public class TestRequestService {
     }
 
     public List<TestRequest> getTestRequestsOfLaboratorian(int laboratorian_id) {
-        return testRequestRepository.getTestRequestsOfLaboratorian(laboratorian_id);
+        List<TestRequest> testRequestList = testRequestRepository.getTestRequestsOfLaboratorian(laboratorian_id);
+        testRequestList.forEach(testRequest -> testRequest.setRequest_count(testRequestRepository.getTestCountOfLaboratorian(testRequest.getTest_type_id(), laboratorian_id)));
+        return testRequestList;
     }
 
     public void updateTestStatusToFinalized(int request_id) {

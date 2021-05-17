@@ -16,6 +16,8 @@ public class Appointment {
     @Id
     private int app_id;
 
+    private transient int app_count;
+
     private String app_status;
 
     private LocalDate app_date;
