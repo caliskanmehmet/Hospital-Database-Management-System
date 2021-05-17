@@ -149,9 +149,9 @@ export default function TestRequestsPanel(props) {
                         />
                     </MuiPickersUtilsProvider>
                 </FormControl>
-                <FormControl style={{marginTop: "20px", marginLeft: "30px"}}>
+                <FormControl style={{marginTop: "20px", marginLeft: "50px"}}>
                     <Button variant="outlined" color="primary" onClick={handleRangeButton}>
-                        Get With Range
+                        Get By Date
                     </Button>
                 </FormControl>
             </FormGroup>

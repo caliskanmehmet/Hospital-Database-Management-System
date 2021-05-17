@@ -15,7 +15,8 @@ public interface AppointmentRepository extends org.springframework.data.reposito
     @Query(value = "SELECT * " +
             "FROM AppointmentsOfCurrentMonth A, Patient PA, Person PE, Doctor D, Clinic C " +
             "WHERE A.doctor_id = ?1 AND A.patient_id = PA.patient_id AND PA.person_id = PE.id AND " +
-            "D.doctor_id = ?1 AND D.clinic_id = C.clinic_id", nativeQuery = true)
+            "D.doctor_id = ?1 AND D.clinic_id = C.clinic_id " +
+            "ORDER BY A.app_date DESC", nativeQuery = true)
     List<Appointment> getAppointmentsOfDoctor(int doctorId);
 
     @Query(value = "SELECT * " +
