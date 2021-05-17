@@ -162,7 +162,7 @@ export default function PatientPanel() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap>
-                        Patient Panel
+                        e-Bni Sina - Patient Panel
                     </Typography>
                 </Toolbar>
             </AppBar>

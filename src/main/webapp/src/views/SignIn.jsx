@@ -115,7 +115,7 @@ export default function SignIn(props) {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Log In
+                    e-Bni Sina - Log In
                 </Typography>
                 <Card variant="outlined">
                     <CardContent>

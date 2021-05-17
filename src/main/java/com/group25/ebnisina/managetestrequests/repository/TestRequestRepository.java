@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,6 +18,27 @@ public interface TestRequestRepository extends org.springframework.data.reposito
             "WHERE TR.app_id = A.app_id AND A.patient_id = ?1 AND TR.test_type_id = TT.type_id " +
             "ORDER BY TR.request_date_time DESC", nativeQuery = true)
     List<TestRequest> getTestRequestsOfPatient(int patient_id);
+
+    @Query(value = "SELECT TR.*, TT.name " +
+            "FROM Test_request TR, Appointment A, Test_type TT " +
+            "WHERE TR.app_id = A.app_id AND A.patient_id = ?1 AND TR.test_type_id = TT.type_id AND " +
+            "TT.name LIKE %?2% " +
+            "ORDER BY TR.request_date_time DESC", nativeQuery = true)
+    List<TestRequest> getTestRequestsOfPatientWithTestType(int patient_id, String testType);
+
+    @Query(value = "SELECT TR.*, TT.name " +
+            "FROM Test_request TR, Appointment A, Test_type TT " +
+            "WHERE TR.app_id = A.app_id AND A.patient_id = ?1 AND TR.test_type_id = TT.type_id AND " +
+            "TR.request_date_time between ?2 AND ?3 " +
+            "ORDER BY TR.request_date_time DESC", nativeQuery = true)
+    List<TestRequest> getTestRequestsOfPatientWithRange(int patient_id, LocalDate startingDate, LocalDate endingDate);
+
+    @Query(value = "SELECT TR.*, TT.name " +
+            "FROM Test_request TR, Appointment A, Test_type TT " +
+            "WHERE TR.app_id = A.app_id AND A.patient_id = ?1 AND TR.test_type_id = TT.type_id AND " +
+            "TT.name LIKE %?4% AND TR.request_date_time between ?2 AND ?3 " +
+            "ORDER BY TR.request_date_time DESC", nativeQuery = true)
+    List<TestRequest> getTestRequestsOfPatientWithAll(int patient_id, LocalDate startingDate, LocalDate endingDate, String testType);
 
     @Query(value = "SELECT DISTINCT TR.*, TT.name " +
             "FROM Test_request TR, Appointment A, Test_type TT " +

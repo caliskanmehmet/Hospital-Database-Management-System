@@ -171,7 +171,7 @@ export default function DoctorPanel() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap>
-                        Doctor Panel
+                        e-Bni Sina - Doctor Panel
                     </Typography>
                 </Toolbar>
             </AppBar>

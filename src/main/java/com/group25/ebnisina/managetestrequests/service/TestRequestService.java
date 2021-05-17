@@ -28,6 +28,18 @@ public class TestRequestService {
         return testRequestRepository.getTestRequestsOfPatient(patient_id);
     }
 
+    public List<TestRequest> getTestRequestsOfPatientWithRange(int patient_id, LocalDate startingDate, LocalDate endingDate) {
+        return testRequestRepository.getTestRequestsOfPatientWithRange(patient_id, startingDate, endingDate);
+    }
+
+    public List<TestRequest> getTestRequestsOfPatientWithAll(int patient_id, LocalDate startingDate, LocalDate endingDate, String testType) {
+        return testRequestRepository.getTestRequestsOfPatientWithAll(patient_id, startingDate, endingDate, testType);
+    }
+
+    public List<TestRequest> getTestRequestsOfPatientWithTestType(int patient_id, String testType) {
+        return testRequestRepository.getTestRequestsOfPatientWithTestType(patient_id, testType);
+    }
+
     public List<TestRequest> getTestRequestsOfAppointment(int app_id) {
         return testRequestRepository.getTestRequestsOfAppointment(app_id);
     }

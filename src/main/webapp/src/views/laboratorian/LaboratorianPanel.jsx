@@ -158,7 +158,7 @@ export default function LaboratorianPanel() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap>
-                        Laboratorian Panel
+                        e-Bni Sina - Laboratorian Panel
                     </Typography>
                 </Toolbar>
             </AppBar>

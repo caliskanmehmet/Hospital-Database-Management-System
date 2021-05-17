@@ -1,5 +1,7 @@
 package com.group25.ebnisina.managetestrequests.controller;
 
+import com.group25.ebnisina.managetestrequests.entity.AllRequest;
+import com.group25.ebnisina.managetestrequests.entity.RangeRequest;
 import com.group25.ebnisina.managetestrequests.entity.TestRequest;
 import com.group25.ebnisina.managetestrequests.service.TestRequestService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,24 @@ public class TestRequestController {
     @GetMapping("/getByPatient/{patient_id}")
     public List<TestRequest> getTestRequestsOfPatient(@PathVariable("patient_id") int patient_id) {
         return testRequestService.getTestRequestsOfPatient(patient_id);
+    }
+
+    @PostMapping("/getByPatientWithRange")
+    public List<TestRequest> getTestRequestsOfPatientWithRange(@RequestBody RangeRequest rangeRequest)
+    {
+        return testRequestService.getTestRequestsOfPatientWithRange(rangeRequest.getPatient_id(),
+                rangeRequest.getStartingDate(), rangeRequest.getEndingDate());
+    }
+
+    @GetMapping("/getByPatientWithTestType")
+    public List<TestRequest> getTestRequestsOfPatientWithTestType(@RequestParam int patient_id, @RequestParam String testType) {
+        return testRequestService.getTestRequestsOfPatientWithTestType(patient_id, testType);
+    }
+
+    @PostMapping("/getByPatientWithAll")
+    List<TestRequest> getTestRequestsOfPatientWithAll(@RequestBody AllRequest allRequest) {
+        return testRequestService.getTestRequestsOfPatientWithAll(allRequest.getPatient_id(),
+                allRequest.getStartingDate(), allRequest.getEndingDate(), allRequest.getTestType());
     }
 
     @GetMapping("/getByAppointment/{app_id}")
